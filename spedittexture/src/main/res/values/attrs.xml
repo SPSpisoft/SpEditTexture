@@ -10,7 +10,6 @@
 <!--    </declare-styleable>-->
 
     <declare-styleable name="EasyTextEditor">
-        <attr name="TextHint" format="string"/>
         <attr name="BorderPadding" format="dimension"/>
         <attr name="BorderMargin" format="dimension"/>
         <attr name="MultiLine" format="boolean"/>

@@ -100,8 +100,9 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
     private float MTextSize;
     private int MTextColor = -1;
     private int MLayoutDirection;
-    OnChangeTextListener mListener;
     private boolean MThousandSP = false;
+    OnEditorActionListener mActionListener;
+    OnChangeTextListener mListener;
 
     public EasyTextEditor(Context context) {
         super(context);
@@ -162,7 +163,6 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
             final TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.EasyTextEditor, 0, 0);
 
             MMode = typedArray.getInt(R.styleable.EasyTextEditor_StartMode, 0);
-            MTv.setHint(typedArray.getString(R.styleable.EasyTextEditor_TextHint));
             MTv.setSingleLine(!typedArray.getBoolean(R.styleable.EasyTextEditor_MultiLine,false));
             inputType = typedArray.getInt(R.styleable.EasyTextEditor_android_inputType, EditorInfo.TYPE_TEXT_VARIATION_NORMAL);
             imeOptions = typedArray.getInt(R.styleable.EasyTextEditor_android_imeOptions, 0);
@@ -312,6 +312,14 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
         mListener = eventListener;
     }
 
+    public interface OnEditorActionListener {
+        void onEvent();
+    }
+
+    public void setOnActionClickListener(OnEditorActionListener eventListener) {
+        mActionListener = eventListener;
+    }
+
     public EasyTextEditor buttonPlusView(Object tag){
         MBtn.setTag(tag);
         MBtn.setVisibility(VISIBLE);
@@ -372,6 +380,8 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
         }
         return this;
     }
+
+//    SetMultiLine
 
     public enum startMode { Typing, Voice, BarcodeReader }
 
@@ -483,6 +493,7 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
                 VerifyText(actionId);
+                if(mActionListener != null) mActionListener.onEvent();
                 return false;
             }
         });

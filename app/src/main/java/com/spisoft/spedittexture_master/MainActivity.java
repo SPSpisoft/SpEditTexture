@@ -38,5 +38,12 @@ public class MainActivity extends AppCompatActivity {
         easyTextEditor.setNextFocus(easyTextEditor2)
                 .setTextColor(Color.RED)
                 .setMode(EasyTextEditor.startMode.Voice);
+
+        easyTextEditor2.setOnActionClickListener(new EasyTextEditor.OnEditorActionListener() {
+            @Override
+            public void onEvent() {
+                easyTextEditor2.setTextColor(Color.GREEN);
+            }
+        });
     }
 }
