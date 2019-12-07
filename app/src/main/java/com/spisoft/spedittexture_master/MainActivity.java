@@ -2,6 +2,7 @@ package com.spisoft.spedittexture_master;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 
@@ -22,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
         final EasyTextEditor easyTextEditor2 = findViewById(R.id.bet2);
         easyTextEditor2.setBackgroundResource(R.drawable.background_button_shape_2);
+        easyTextEditor2.setTextColor(R.color.colorPrimary);
         Typeface TF_Tahoma = Typeface.createFromAsset(getBaseContext() .getAssets(), "tahoma.ttf" + "");
 
         easyTextEditor0.setNextFocus(easyTextEditor)
@@ -33,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
                 .setList(new String[] { "Android List View", "Adapter implementation"});
 
 //                .SetUses(MainActivity.this, false, false);
-        easyTextEditor.setNextFocus(easyTextEditor2).setMode(EasyTextEditor.startMode.Voice);
+        easyTextEditor.setNextFocus(easyTextEditor2)
+                .setTextColor(Color.RED)
+                .setMode(EasyTextEditor.startMode.Voice);
     }
 }

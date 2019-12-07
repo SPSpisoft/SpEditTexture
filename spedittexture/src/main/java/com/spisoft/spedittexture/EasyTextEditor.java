@@ -98,7 +98,7 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
     private int MMode;
     private Typeface MTypeFace = null;
     private float MTextSize;
-    private int MTextColor;
+    private int MTextColor = -1;
     private int MLayoutDirection;
     OnChangeTextListener mListener;
     private boolean MThousandSP = false;
@@ -345,6 +345,13 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
 
     public EasyTextEditor setTypeFace(Typeface typeFace){
         MTypeFace = typeFace;
+        MTv.setTypeface(MTypeFace);
+        return this;
+    }
+
+    public EasyTextEditor setTextColor(int color){
+        MTextColor = color;
+        MTv.setTextColor(MTextColor);
         return this;
     }
 
@@ -375,6 +382,9 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
                 break;
             case 1:
                 UseSpeechToText = true;
+                break;
+            case 2:
+                UseBarcodeScanner = true;
                 break;
         }
         return this;
