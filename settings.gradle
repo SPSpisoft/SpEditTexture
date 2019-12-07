@@ -1,0 +1,2 @@
+include ':app', ':spedittexture'
+rootProject.name='SpEditTexture-master'

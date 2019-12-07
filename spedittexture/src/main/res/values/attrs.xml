@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<!--    <declare-styleable name="SpsEditText">-->
+<!--        <attr name="TextHint" format="string"/>-->
+<!--        <attr name="BorderPadding" format="dimension"/>-->
+<!--        <attr name="BorderMargin" format="dimension"/>-->
+<!--        <attr name="MultiLine" format="boolean"/>-->
+<!--        <attr name="android:imeOptions"/>-->
+<!--        <attr name="android:inputType"/>-->
+<!--    </declare-styleable>-->
+
+    <declare-styleable name="EasyTextEditor">
+        <attr name="TextHint" format="string"/>
+        <attr name="BorderPadding" format="dimension"/>
+        <attr name="BorderMargin" format="dimension"/>
+        <attr name="MultiLine" format="boolean"/>
+
+        <attr name="StartMode" format="enum">
+        <enum name="Typing" value="0"/>
+        <enum name="Voice" value="1"/>
+        </attr>
+
+        <attr name="android:imeOptions"/>
+        <attr name="android:inputType"/>
+        <attr name="android:typeface"/>
+        <attr name="android:textSize"/>
+        <attr name="android:textColor"/>
+        <attr name="android:layoutDirection"/>
+    </declare-styleable>
+</resources>
