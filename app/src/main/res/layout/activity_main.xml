@@ -15,6 +15,7 @@
 
         <TextView
             android:id="@+id/mtt"
+            android:background="@drawable/background_button_shape_2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
@@ -22,7 +23,6 @@
 
         <com.spisoft.spedittexture.EasyTextEditor
             android:id="@+id/bet0"
-            android:textSize="@dimen/sps_txt_sz_14"
             android:textColor="@color/colorPrimaryDark"
             android:inputType="text"
             android:layout_width="match_parent"
@@ -47,19 +47,35 @@
             android:inputType="text"
             tools:ignore="MissingConstraints" />
 
-        <com.spisoft.spedittexture.EasyTextEditor
-            android:id="@+id/etPrice"
-            android:textColor="@color/colorAccent"
-            android:singleLine="false"
-            android:layout_gravity="center_vertical|right"
-            android:gravity="center_vertical|right"
-            android:padding="@dimen/sps_lpr_5"
-            android:maxLines="1"
-            android:inputType="number"
-            android:layout_weight="2"
+
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="@dimen/sps_lpr_sz_30">
-        </com.spisoft.spedittexture.EasyTextEditor>
+            android:layout_height="match_parent"
+            android:layout_weight="2">
+
+            <LinearLayout
+                android:id="@+id/llyPrice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+            </LinearLayout>
+
+        </ScrollView>
+        
+
+<!--        <com.spisoft.spedittexture.EasyTextEditor-->
+<!--            android:id="@+id/etPrice"-->
+<!--            android:textColor="@color/colorAccent"-->
+<!--            android:singleLine="false"-->
+<!--            android:layout_gravity="center_vertical|right"-->
+<!--            android:gravity="center_vertical|right"-->
+<!--            android:padding="@dimen/sps_lpr_5"-->
+<!--            android:maxLines="1"-->
+<!--            android:inputType="number"-->
+<!--            android:layout_weight="2"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="@dimen/sps_lpr_sz_30">-->
+<!--        </com.spisoft.spedittexture.EasyTextEditor>-->
 
     </LinearLayout>
 

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:id="@+id/rlyBtn"
+        android:orientation="horizontal"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/mCnt"
+            android:visibility="gone"
+            android:textColor="@color/colorAccent"
+            android:text=""
+            android:layout_toStartOf="@+id/rlyBtn"
+            android:layout_alignParentEnd="true"
+            android:paddingStart="@dimen/sps_lpr_5"
+            android:paddingEnd="@dimen/sps_lpr_5"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+
+        <com.github.johnkil.print.PrintView
+            android:id="@+id/iSearch"
+            android:visibility="gone"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:paddingStart="@dimen/sps_lpr_5"
+            android:paddingEnd="@dimen/sps_lpr_5"
+            app:iconColor="@android:color/darker_gray"
+            app:iconSize="@dimen/sps_lpr_sz_30"
+            app:iconText="@string/ic_holo_search" />
+
+        <com.github.johnkil.print.PrintView
+            android:id="@+id/iVoice"
+            android:visibility="gone"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:paddingStart="@dimen/sps_lpr_5"
+            android:paddingEnd="@dimen/sps_lpr_5"
+            app:iconColor="@android:color/darker_gray"
+            app:iconSize="@dimen/sps_lpr_sz_30"
+            app:iconText="@string/ic_holo_mic" />
+
+        <ImageView
+            android:id="@+id/iQr"
+            android:visibility="gone"
+            android:src="@drawable/ic_action_qr_code"
+            android:layout_gravity="center"
+            android:paddingStart="@dimen/sps_lpr_5"
+            android:paddingEnd="@dimen/sps_lpr_5"
+            android:layout_width="@dimen/sps_lpr_sz_30"
+            android:layout_height="@dimen/sps_lpr_sz_30" />
+
+
+    </LinearLayout>
+
+</RelativeLayout>
