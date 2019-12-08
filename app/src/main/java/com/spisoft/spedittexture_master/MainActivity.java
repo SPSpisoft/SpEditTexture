@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -21,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        EditText VT = findViewById(R.id.vt);
         EasyTextEditor easyTextEditor0 = findViewById(R.id.bet0);
         EasyTextEditor easyTextEditor = findViewById(R.id.bet);
 //        easyTextEditor.setPadding(R.dimen.sps_lpr_sz_20,R.dimen.sps_lpr_sz_20,R.dimen.sps_lpr_sz_20,R.dimen.sps_lpr_sz_20);
@@ -30,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
         final EasyTextEditor easyTextEditor2 = findViewById(R.id.bet2);
         easyTextEditor2.setBackgroundResource(R.drawable.background_button_shape_2);
-        easyTextEditor2.setTextColor(R.color.colorPrimary);
+        easyTextEditor2.setTextColor(R.color.colorPrimary).setOnFocusStart(true);
         Typeface TF_Tahoma = Typeface.createFromAsset(getBaseContext() .getAssets(), "tahoma.ttf" + "");
 
         easyTextEditor0.setNextFocus(easyTextEditor)
@@ -42,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
                 .setList(new String[] { "Android List View", "Adapter implementation"});
 
 //                .SetUses(MainActivity.this, false, false);
-        easyTextEditor.setNextFocus(easyTextEditor2)
+        easyTextEditor.setNextFocus(VT)
                 .setTextColor(Color.RED)
                 .setMode(EasyTextEditor.startMode.Voice);
 

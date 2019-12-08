@@ -83,7 +83,7 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
     private int inputType;
     private int imeOptions;
     private int Index;
-    private EasyTextEditor vNext;
+    private View vNext;
     private AlertDialog AlertDialogText;
     private String MInfo = null;
     private ListView listView;
@@ -99,6 +99,7 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
     OnChangeTextListener mListener;
     private boolean MMultiLine;
     private boolean MEnabled = true;
+    private boolean MOnFocusStart = false;
 
     public EasyTextEditor(Context context) {
         super(context);
@@ -146,12 +147,12 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
             }
         });
 
-//        MTv.setOnFocusChangeListener(new OnFocusChangeListener() {
-//            @Override
-//            public void onFocusChange(View v, boolean hasFocus) {
-//                if(hasFocus) OpenEditorDialog(context);
-//            }
-//        });
+        MTv.setOnFocusChangeListener(new OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(MOnFocusStart && hasFocus) OpenEditorDialog(context);
+            }
+        });
 
         this.setOnClickListener(new OnClickListener() {
             @Override
@@ -359,7 +360,7 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
         return this;
     }
 
-    public EasyTextEditor setNextFocus(EasyTextEditor nextEasyTextEditor){
+    public EasyTextEditor setNextFocus(View nextEasyTextEditor){
         vNext = nextEasyTextEditor;
         imeOptions = EditorInfo.IME_ACTION_NEXT;
         return this;
@@ -408,6 +409,12 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
     public EasyTextEditor setEnable(boolean enabled){
         MEnabled = enabled;
         MTv.setEnabled(MEnabled);
+        return this;
+    }
+
+    public EasyTextEditor setOnFocusStart(boolean onFocusStart){
+        MOnFocusStart = onFocusStart;
+//        MTv.setEnabled(MEnabled);
         return this;
     }
 
@@ -530,6 +537,8 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
         if(MTypeFace != null) MText.setTypeface(MTypeFace);
         if(MMultiLine) MText.setSingleLine(false);
         else MText.setSingleLine(true);
+        if(MTypeFace != null) MText.setTypeface(MTypeFace);
+        MText.setTextSize(MTextSize);
 
         ViewBase.setLayoutDirection(MLayoutDirection);
 
@@ -627,7 +636,8 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
         AlertDialogText.dismiss();
         if(actionId== EditorInfo.IME_ACTION_NEXT){
             if(vNext != null) {
-                vNext.callOnClick();
+                if (vNext instanceof EasyTextEditor) vNext.callOnClick();
+                else vNext.requestFocus();
             }
         }
     }
