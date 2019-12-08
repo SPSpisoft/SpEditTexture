@@ -87,7 +87,7 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
     private int REQ_CODE_QRCODE = 107;
     private boolean UseSpeechToText = false , UseBarcodeScanner = false;
     private RelativeLayout ViewBase, ViewBaseText;
-    private TextView MTv;
+    private TextView MTv, MTHint;
     private View MiAbout;
     private int inputType;
     private int imeOptions;
@@ -343,10 +343,10 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
         return this;
     }
 
-//    public EasyTextEditor setHint(String hint){
-//        MTv.setHint(hint);
-//        return this;
-//    }
+    public EasyTextEditor setHint(String hint){
+        MTv.setHint(hint);
+        return this;
+    }
 
     public EasyTextEditor setNextFocus(EasyTextEditor nextEasyTextEditor){
         vNext = nextEasyTextEditor;
@@ -453,8 +453,8 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
         MBtn = rootView.findViewById(R.id.iSearch);
         MBtnVoice = rootView.findViewById(R.id.iVoice);
         MBtnQrCode = rootView.findViewById(R.id.iQr);
-//        MTHint = rootView.findViewById(R.id.txtHint);
-//        if(MTv.getHint() != null) MTHint.setText(MTv.getHint().toString());
+        MTHint = rootView.findViewById(R.id.tHint);
+        if(MTv.getHint() != null) MTHint.setText(MTv.getHint().toString());
         MText.setText(MTv.getText().toString());
         MText.setSelection(MTv.getText().toString().length());
         if(MTypeFace != null) MText.setTypeface(MTypeFace);
