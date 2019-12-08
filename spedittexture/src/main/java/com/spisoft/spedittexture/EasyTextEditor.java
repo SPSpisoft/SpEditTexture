@@ -50,6 +50,7 @@ import androidx.annotation.Dimension;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.view.ContextThemeWrapper;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
@@ -106,6 +107,7 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
     private boolean MThousandSP = false;
     OnEditorActionListener mActionListener;
     OnChangeTextListener mListener;
+    private boolean MMultiLine;
 
     public EasyTextEditor(Context context) {
         super(context);
@@ -171,7 +173,7 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
             final TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.EasyTextEditor, 0, 0);
 
             MMode = typedArray.getInt(R.styleable.EasyTextEditor_StartMode, 0);
-            MTv.setSingleLine(!typedArray.getBoolean(R.styleable.EasyTextEditor_MultiLine,false));
+            MMultiLine= typedArray.getBoolean(R.styleable.EasyTextEditor_MultiLine,false);
             inputType = typedArray.getInt(R.styleable.EasyTextEditor_android_inputType, EditorInfo.TYPE_TEXT_VARIATION_NORMAL);
             imeOptions = typedArray.getInt(R.styleable.EasyTextEditor_android_imeOptions, 0);
 //            MTypeFace = typedArray.getValue(R.styleable.EasyTextEditor_android_typeface,Typeface.NORMAL);
@@ -389,7 +391,10 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
         return this;
     }
 
-//    SetMultiLine
+    public EasyTextEditor setMultiLine(boolean multiLine){
+        MMultiLine = multiLine;
+        return this;
+    }
 
     public enum startMode { Typing, Voice, BarcodeReader }
 
@@ -443,7 +448,8 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
 
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         final View rootView = layoutInflater.inflate(R.layout.sps_layout, null);
-        final AlertDialog.Builder alertDialogText = new AlertDialog.Builder(context);
+        final AlertDialog.Builder alertDialogText = new AlertDialog.Builder(new ContextThemeWrapper(context, R.style.myDialog));
+//        AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(this, R.style.myDialog));
         alertDialogText.setView(rootView);
 
         ViewBase = rootView.findViewById(R.id.viewBase);
@@ -458,6 +464,8 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
         MText.setText(MTv.getText().toString());
         MText.setSelection(MTv.getText().toString().length());
         if(MTypeFace != null) MText.setTypeface(MTypeFace);
+        if(MMultiLine) MText.setSingleLine(false);
+        else MText.setSingleLine(true);
 
         ViewBase.setLayoutDirection(MLayoutDirection);
 
