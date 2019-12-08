@@ -100,6 +100,8 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
     private boolean MMultiLine;
     private boolean MEnabled = true;
     private boolean MOnFocusStart = false;
+    private int MNextFocusDownId;
+    private String MHint;
 
     public EasyTextEditor(Context context) {
         super(context);
@@ -173,9 +175,14 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
             MTextSize = typedArray.getDimension(R.styleable.EasyTextEditor_android_textSize, 17f);
             MTextColor = typedArray.getColor(R.styleable.EasyTextEditor_android_textColor, Color.BLACK);
             MLayoutDirection = typedArray.getInt(R.styleable.EasyTextEditor_android_layoutDirection, LayoutDirection.LOCALE);
+            MNextFocusDownId = typedArray.getInt(R.styleable.EasyTextEditor_android_nextFocusDown, 0);
+            MHint = typedArray.getString(R.styleable.EasyTextEditor_Hint);
 //            MBackground = typedArray.getInt(R.styleable.EasyTextEditor_android_layoutDirection, LayoutDirection.LOCALE);
             typedArray.recycle();
         }
+
+        if(MHint != null) MTv.setHint(MHint);
+        if(MNextFocusDownId > 0) vNext = this.rootView.findViewById(MNextFocusDownId);
         MEnabled = this.isEnabled();
         MTv.setEnabled(MEnabled);
         if(MTypeFace != null) MTv.setTypeface(MTypeFace);
