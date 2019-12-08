@@ -15,7 +15,7 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/tHint"
+            android:id="@+id/txtHint"
             android:padding="@dimen/sps_lpr_5"
             android:layout_centerVertical="true"
             android:layout_toStartOf="@id/rlyBtn"

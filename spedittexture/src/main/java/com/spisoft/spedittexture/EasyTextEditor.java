@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
@@ -20,7 +21,9 @@ import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 import android.text.Editable;
+import android.text.SpannableString;
 import android.text.TextWatcher;
+import android.text.style.UnderlineSpan;
 import android.util.AttributeSet;
 import android.util.LayoutDirection;
 import android.view.Gravity;
@@ -135,6 +138,11 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
 
         ViewBaseText = rootView.findViewById(R.id.viewBaseText);
         MTv = rootView.findViewById(R.id.mTextView);
+//        MTv.setPaintFlags(MTv.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+//        SpannableString content = new SpannableString("Content");
+//        content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+//        MTv.setText(content);
+
         MiAbout = rootView.findViewById(R.id.icAbout);
         MTv.setId(View.generateViewId());
 
@@ -445,7 +453,7 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
         MBtn = rootView.findViewById(R.id.iSearch);
         MBtnVoice = rootView.findViewById(R.id.iVoice);
         MBtnQrCode = rootView.findViewById(R.id.iQr);
-        MTHint = rootView.findViewById(R.id.tHint);
+        MTHint = rootView.findViewById(R.id.txtHint);
         if(MTv.getHint() != null) MTHint.setText(MTv.getHint().toString());
         MText.setText(MTv.getText().toString());
         MText.setSelection(MTv.getText().toString().length());
