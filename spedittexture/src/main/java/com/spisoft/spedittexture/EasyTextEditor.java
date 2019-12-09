@@ -79,7 +79,7 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
     private RelativeLayout ViewBase, ViewBaseText;
     private TextView MTHint;
     private EditText MTv;
-    private View MiAbout;
+    private View MiAbout, MiOptional;
     private int inputType;
     private int imeOptions;
     private int Index;
@@ -201,6 +201,7 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
 //        final View rootView2 = layoutInflater.inflate(R.layout.sp_control, RlyControl);
 //        SetViewDialog2(context, rootView2);
 
+        MiOptional = rootView.findViewById(R.id.icOptional);
         MiAbout = rootView.findViewById(R.id.icAbout);
         MiAbout.setOnClickListener(new OnClickListener() {
             @Override
@@ -422,6 +423,7 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
 
     public EasyTextEditor setOptional(boolean optional){
         MOptional = optional;
+        if(MOptional) MiOptional.setVisibility(VISIBLE);
         return this;
     }
 

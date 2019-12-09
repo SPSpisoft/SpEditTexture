@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
-        android:layout_toStartOf="@+id/icAbout"
+        android:layout_toStartOf="@+id/rlySync"
         android:editable="false"
         android:padding="@dimen/sps_lpr_10"
         android:textSize="@dimen/sps_txt_sz_16" />
@@ -29,19 +29,40 @@
 <!--        android:layout_height="wrap_content">-->
 <!--    </RelativeLayout>-->
 
-    <com.github.johnkil.print.PrintView
-        android:id="@+id/icAbout"
+    <LinearLayout
+        android:id="@+id/rlySync"
         android:layout_alignParentEnd="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_gravity="center"
-        android:paddingStart="@dimen/sps_lpr_5"
-        android:paddingEnd="@dimen/sps_lpr_5"
-        android:visibility="gone"
-        app:iconColor="@android:color/darker_gray"
-        app:iconFont="holo-icon-font.ttf"
-        app:iconSize="@dimen/sps_lpr_sz_30"
-        app:iconText="@string/ic_holo_about" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <com.github.johnkil.print.PrintView
+            android:id="@+id/icOptional"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingStart="@dimen/sps_lpr_5"
+            android:paddingEnd="@dimen/sps_lpr_5"
+            android:visibility="gone"
+            app:iconColor="@android:color/darker_gray"
+            app:iconFont="material-icon-font.ttf"
+            app:iconSize="@dimen/sps_lpr_sz_30"
+            app:iconText="@string/ic_arrow_drop_down" />
+
+        <com.github.johnkil.print.PrintView
+            android:id="@+id/icAbout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingStart="@dimen/sps_lpr_5"
+            android:paddingEnd="@dimen/sps_lpr_5"
+            android:visibility="gone"
+            app:iconColor="@android:color/darker_gray"
+            app:iconFont="holo-icon-font.ttf"
+            app:iconSize="@dimen/sps_lpr_sz_30"
+            app:iconText="@string/ic_holo_about" />
+
+    </LinearLayout>
+
 
 </RelativeLayout>
