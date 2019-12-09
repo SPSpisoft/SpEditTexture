@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         easyTextEditor.setEnable(true);
 
         final EasyTextEditor easyTextEditor2 = findViewById(R.id.bet2);
-        easyTextEditor2.setBackgroundResource(R.drawable.background_button_shape_2);
+        easyTextEditor2.setOnFocusStart(true).setBackgroundResource(R.drawable.background_button_shape_2);
         easyTextEditor2.setTextColor(R.color.colorPrimary).setOnFocusStart(true);
         Typeface TF_Tahoma = Typeface.createFromAsset(getBaseContext() .getAssets(), "tahoma.ttf" + "");
 
@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
                 .setUses(MainActivity.this, true, true)
                 .setInfo(getResources().getString(R.string.app_name))
                 .setHint("hint")
+                .setOptional(true)
                 .setTypeFace(TF_Tahoma)
                 .setMode(EasyTextEditor.startMode.Typing)
                 .setList(new String[] { "Android List View", "Adapter implementation"});

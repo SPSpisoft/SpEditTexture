@@ -579,5 +579,6 @@
     <string name="ic_holo_volume_on" translatable="false">&#xe08d;</string>
     <string name="ic_holo_warning" translatable="false">&#xe08e;</string>
     <string name="ic_holo_web_site" translatable="false">&#xe08f;</string>
+    <string name="Next">Next</string>
 
 </resources>

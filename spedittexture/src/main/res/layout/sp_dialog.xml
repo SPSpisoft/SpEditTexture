@@ -32,21 +32,70 @@
 
         <TextView
             android:id="@+id/tHint"
-            android:text="hint"
             android:padding="@dimen/sps_lpr_5"
+            android:textSize="@dimen/sps_txt_sz_20"
+            android:textColor="@color/colorPrimaryDark"
+            android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:layout_toStartOf="@id/rlyBtn"
-            android:layout_alignParentStart="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
         </TextView>
+
+
+        <!--        <include-->
+<!--            android:id="@+id/lyHeadInc"-->
+<!--            layout="@layout/sp_control"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_alignParentEnd="true"-->
+<!--            android:layout_centerVertical="true">-->
+<!--        </include>-->
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_below="@+id/lyHead"
+        android:id="@+id/lyText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/mText"
+            android:imeOptions="flagNoFullscreen|actionDone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:inputType="text"
+            android:textSize="@dimen/sps_txt_sz_16" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlyList"
+        android:layout_below="@+id/lyText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ListView
+            android:id="@+id/list"
+            android:visibility="gone"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent">
+        </ListView>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlyBottom"
+        android:layout_below="@+id/rlyList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:id="@+id/rlyBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
             android:orientation="horizontal">
 
             <ImageView
@@ -99,40 +148,16 @@
 
         </LinearLayout>
 
-        <!--        <include-->
-<!--            android:id="@+id/lyHeadInc"-->
-<!--            layout="@layout/sp_control"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_alignParentEnd="true"-->
-<!--            android:layout_centerVertical="true">-->
-<!--        </include>-->
-
+        <TextView
+            android:id="@+id/btnNext"
+            android:textColor="@color/colorPrimaryDark"
+            android:text="@string/Next"
+            android:layout_centerVertical="true"
+            android:padding="@dimen/sps_lpr_10"
+            android:layout_alignParentEnd="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </TextView>
     </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_below="@+id/lyHead"
-        android:id="@+id/lyText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <EditText
-            android:id="@+id/mText"
-            android:imeOptions="flagNoFullscreen|actionDone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:inputType="text"
-            android:textSize="@dimen/sps_txt_sz_16" />
-
-    </RelativeLayout>
-
-    <ListView
-        android:id="@+id/list"
-        android:visibility="gone"
-        android:layout_below="@+id/lyText"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent">
-    </ListView>
 
 </RelativeLayout>

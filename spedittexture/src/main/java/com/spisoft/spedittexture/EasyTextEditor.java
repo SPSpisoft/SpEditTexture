@@ -102,6 +102,10 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
     private boolean MOnFocusStart = false;
     private int MNextFocusDownId;
     private String MHint;
+    private boolean MOptional;
+    private String MNextText;
+    private TextView MNextBtn;
+    private RelativeLayout RlyBottom;
 
     public EasyTextEditor(Context context) {
         super(context);
@@ -181,6 +185,8 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
             typedArray.recycle();
         }
 
+        if(MMultiLine) MTv.setSingleLine(false);
+        else MTv.setSingleLine(true);
         if(MHint != null) MTv.setHint(MHint);
         if(MNextFocusDownId > 0) vNext = this.rootView.findViewById(MNextFocusDownId);
         MEnabled = this.isEnabled();
@@ -208,7 +214,8 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
         if(MEnabled) {
             dialogEditText(context, null, null, null);
             AlertDialogText.show();
-            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+            if(!MOptional)
+                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
         }
 
     }
@@ -413,9 +420,19 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
         return this;
     }
 
+    public EasyTextEditor setOptional(boolean optional){
+        MOptional = optional;
+        return this;
+    }
+
     public EasyTextEditor setEnable(boolean enabled){
         MEnabled = enabled;
         MTv.setEnabled(MEnabled);
+        return this;
+    }
+
+    public EasyTextEditor setNextText(String nextText){
+        MNextText = nextText;
         return this;
     }
 
@@ -536,6 +553,17 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
         MBtnVoice = rootView.findViewById(R.id.iVoice);
         MBtnQrCode = rootView.findViewById(R.id.iQr);
         MTHint = rootView.findViewById(R.id.tHint);
+        RlyBottom = rootView.findViewById(R.id.rlyBottom);
+        MNextBtn = rootView.findViewById(R.id.btnNext);
+        if(MNextText != null) MNextBtn.setText(MNextText);
+        MNextBtn.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                VerifyText(imeOptions);
+            }
+        });
+
+        RlyBottom.setLayoutDirection(MLayoutDirection);
         if(MTv.getHint() != null) MTHint.setText(MTv.getHint().toString());
 
         MText = rootView.findViewById(R.id.mText);
@@ -546,6 +574,11 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
         else MText.setSingleLine(true);
         if(MTypeFace != null) MText.setTypeface(MTypeFace);
         MText.setTextSize(MTextSize);
+        if(MOptional){
+            MText.setVisibility(GONE);
+            UseSpeechToText = false;
+            UseBarcodeScanner = false;
+        }
 
         ViewBase.setLayoutDirection(MLayoutDirection);
 
@@ -567,6 +600,16 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
                     String itemValue = (String) listView.getItemAtPosition(position);
                     MText.setText(itemValue);
                     VerifyText(imeOptions);
+                }
+            });
+            listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                @Override
+                public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                    String itemValue = (String) listView.getItemAtPosition(position);
+                    MText.setText(itemValue);
+                    AlertDialogText.dismiss();
+                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+                    return true;
                 }
             });
         }
@@ -641,7 +684,7 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
 
     public void VerifyText(int actionId) {
         AlertDialogText.dismiss();
-        if(actionId== EditorInfo.IME_ACTION_NEXT){
+        if(actionId == EditorInfo.IME_ACTION_NEXT){
             if(vNext != null) {
                 if (vNext instanceof EasyTextEditor) vNext.callOnClick();
                 else vNext.requestFocus();
