@@ -14,6 +14,7 @@
         <attr name="BorderMargin" format="dimension"/>
         <attr name="MultiLine" format="boolean"/>
         <attr name="Hint" format="string"/>
+        <attr name="ZTextSize" format="float"/>
 
         <attr name="StartMode" format="enum">
         <enum name="Typing" value="0"/>
@@ -25,6 +26,7 @@
         <attr name="android:typeface"/>
         <attr name="android:textSize"/>
         <attr name="android:textColor"/>
+        <attr name="android:gravity"/>
         <attr name="android:layoutDirection"/>
         <attr name="android:nextFocusDown"/>
     </declare-styleable>

@@ -580,5 +580,6 @@
     <string name="ic_holo_warning" translatable="false">&#xe08e;</string>
     <string name="ic_holo_web_site" translatable="false">&#xe08f;</string>
     <string name="Next">Next</string>
+    <string name="Prev">Previous</string>
 
 </resources>

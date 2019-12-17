@@ -90,6 +90,21 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <TextView
+            android:id="@+id/btnPrev"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@+id/rlyBtn"
+            android:gravity="start"
+            android:padding="@dimen/sps_lpr_10"
+            android:singleLine="true"
+            android:text="@string/Prev"
+            android:textColor="@color/colorPrimaryDark"
+            android:visibility="gone">
+        </TextView>
+
         <LinearLayout
             android:id="@+id/rlyBtn"
             android:layout_width="wrap_content"
@@ -150,14 +165,19 @@
 
         <TextView
             android:id="@+id/btnNext"
-            android:textColor="@color/colorPrimaryDark"
-            android:text="@string/Next"
-            android:layout_centerVertical="true"
-            android:padding="@dimen/sps_lpr_10"
-            android:layout_alignParentEnd="true"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/rlyBtn"
+            android:gravity="end"
+            android:padding="@dimen/sps_lpr_10"
+            android:singleLine="true"
+            android:text="@string/Next"
+            android:textColor="@color/colorPrimaryDark"
+            android:visibility="gone">
         </TextView>
+
     </RelativeLayout>
 
 </RelativeLayout>

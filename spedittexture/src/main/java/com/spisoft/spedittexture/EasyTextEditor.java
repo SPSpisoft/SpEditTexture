@@ -21,6 +21,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.LayoutDirection;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -83,7 +84,6 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
     private int inputType;
     private int imeOptions;
     private int Index;
-    private View vNext;
     private AlertDialog AlertDialogText;
     private String MInfo = null;
     private ListView listView;
@@ -91,7 +91,7 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
     private String[] MListItems;
     private int MMode;
     private Typeface MTypeFace = null;
-    private float MTextSize;
+    private float MTextSize, ZTextSize;
     private int MTextColor = -1;
     private int MLayoutDirection;
     private boolean MThousandSP = false;
@@ -103,8 +103,9 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
     private int MNextFocusDownId;
     private String MHint;
     private boolean MOptional;
-    private String MNextText;
-    private TextView MNextBtn;
+    private String MNextText, MPrevText;
+    private View vNext, vPrev;
+    private TextView MNextBtn, MPrevBtn;
     private RelativeLayout RlyBottom;
 
     public EasyTextEditor(Context context) {
@@ -175,8 +176,11 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
             MMultiLine= typedArray.getBoolean(R.styleable.EasyTextEditor_MultiLine,false);
             inputType = typedArray.getInt(R.styleable.EasyTextEditor_android_inputType, EditorInfo.TYPE_TEXT_VARIATION_NORMAL);
             imeOptions = typedArray.getInt(R.styleable.EasyTextEditor_android_imeOptions, 0);
+            MTv.setGravity(typedArray.getInt(R.styleable.EasyTextEditor_android_gravity, Gravity.NO_GRAVITY));
+//            MTv.typedArray.getInt(R.styleable.EasyTextEditor_android_layout_gravity, Gravity.NO_GRAVITY);
 //            MTypeFace = typedArray.getValue(R.styleable.EasyTextEditor_android_typeface,Typeface.NORMAL);
             MTextSize = typedArray.getDimension(R.styleable.EasyTextEditor_android_textSize, 17f);
+            ZTextSize = typedArray.getDimension(R.styleable.EasyTextEditor_ZTextSize, 1);
             MTextColor = typedArray.getColor(R.styleable.EasyTextEditor_android_textColor, Color.BLACK);
             MLayoutDirection = typedArray.getInt(R.styleable.EasyTextEditor_android_layoutDirection, LayoutDirection.LOCALE);
             MNextFocusDownId = typedArray.getInt(R.styleable.EasyTextEditor_android_nextFocusDown, 0);
@@ -375,8 +379,15 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
         return this;
     }
 
-    public EasyTextEditor setNextFocus(View nextEasyTextEditor){
+    public EasyTextEditor setPrevFocus(View prevEasyTextEditor, String prevText){
+        vPrev = prevEasyTextEditor;
+        MPrevText = prevText;
+        return this;
+    }
+
+    public EasyTextEditor setNextFocus(View nextEasyTextEditor, String nextText){
         vNext = nextEasyTextEditor;
+        MNextText = nextText;
         imeOptions = EditorInfo.IME_ACTION_NEXT;
         return this;
     }
@@ -433,10 +444,6 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
         return this;
     }
 
-    public EasyTextEditor setNextText(String nextText){
-        MNextText = nextText;
-        return this;
-    }
 
     public EasyTextEditor setOnFocusStart(boolean onFocusStart){
         MOnFocusStart = onFocusStart;
@@ -556,14 +563,24 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
         MBtnQrCode = rootView.findViewById(R.id.iQr);
         MTHint = rootView.findViewById(R.id.tHint);
         RlyBottom = rootView.findViewById(R.id.rlyBottom);
-        MNextBtn = rootView.findViewById(R.id.btnNext);
-        if(MNextText != null) MNextBtn.setText(MNextText);
-        MNextBtn.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                VerifyText(imeOptions);
-            }
-        });
+        if(vNext != null) {
+            MNextBtn = rootView.findViewById(R.id.btnNext);
+            MNextBtn.setVisibility(VISIBLE);
+            if (MNextText != null) MNextBtn.setText(MNextText);
+            MNextBtn.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) { VerifyText(imeOptions); }
+            });
+        }
+        if(vPrev != null) {
+            MPrevBtn = rootView.findViewById(R.id.btnPrev);
+            MPrevBtn.setVisibility(VISIBLE);
+            if (MPrevText != null) MPrevBtn.setText(MNextText);
+            MPrevBtn.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) { vPrev.requestFocus(); }
+            });
+        }
 
         RlyBottom.setLayoutDirection(MLayoutDirection);
         if(MTv.getHint() != null) MTHint.setText(MTv.getHint().toString());
@@ -575,7 +592,7 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
         if(MMultiLine) MText.setSingleLine(false);
         else MText.setSingleLine(true);
         if(MTypeFace != null) MText.setTypeface(MTypeFace);
-        MText.setTextSize(MTextSize);
+        MText.setTextSize(MTextSize*ZTextSize);
         if(MOptional){
             MText.setVisibility(GONE);
             UseSpeechToText = false;
@@ -674,7 +691,6 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
             }
         });
 
-
     }
 
     public void ListFilter(String mText) {
@@ -692,108 +708,6 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
                 else vNext.requestFocus();
             }
         }
-    }
-
-    private void SetViewDialog2(final Context context, View rootView) {
-        ViewBase = rootView.findViewById(R.id.viewBase);
-        circleProgress = rootView.findViewById(R.id.cProgress);
-        MCnt = rootView.findViewById(R.id.mCnt);
-        MBtn = rootView.findViewById(R.id.iSearch);
-        MBtnVoice = rootView.findViewById(R.id.iVoice);
-        MBtnQrCode = rootView.findViewById(R.id.iQr);
-        MTHint = rootView.findViewById(R.id.tHint);
-        if(MTv.getHint() != null) MTHint.setText(MTv.getHint().toString());
-
-//        MText = rootView.findViewById(R.id.mText);
-//        MText.setText(MTv.getText().toString());
-//        MText.setSelection(MTv.getText().toString().length());
-//        if(MTypeFace != null) MText.setTypeface(MTypeFace);
-//        if(MMultiLine) MText.setSingleLine(false);
-//        else MText.setSingleLine(true);
-
-//        ViewBase.setLayoutDirection(MLayoutDirection);
-
-//        listView = rootView.findViewById(R.id.list);
-
-        if(UseSpeechToText) MBtnVoice.setVisibility(VISIBLE);
-//        else MBtnVoice.setVisibility(GONE);
-
-        if(UseBarcodeScanner) MBtnQrCode.setVisibility(VISIBLE);
-//        else MBtnQrCode.setVisibility(GONE);
-
-//        if(MListItems != null && MListItems.length > 0) {
-//            listView.setVisibility(VISIBLE);
-//            listAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, android.R.id.text1, MListItems);
-//            listView.setAdapter(listAdapter);
-//            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//                @Override
-//                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                    String itemValue = (String) listView.getItemAtPosition(position);
-//                    MText.setText(itemValue);
-//                    VerifyText(imeOptions);
-//                }
-//            });
-//        }
-
-        //---------------------
-        MBtn.setIconFont(TF_Holo);
-        MBtnVoice.setIconFont(TF_Holo);
-
-        MBtnVoice.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                promptSpeechInput(context);
-            }
-        });
-
-        MBtn.setVisibility(GONE);
-//        MText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-//            @Override
-//            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-//                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-//                VerifyText(actionId);
-//                if(mActionListener != null) mActionListener.onEvent();
-//                return false;
-//            }
-//        });
-
-//        MText.setInputType(inputType);
-//        MText.setImeOptions(imeOptions | EditorInfo.IME_FLAG_NO_EXTRACT_UI);
-
-//        MText.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//                MTv.setText(s);
-//                ListFilter(s.toString());
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable s) {
-//                if(mListener!=null)
-//                    mListener.onEvent();
-//            }
-//        });
-
-        MBtnQrCode.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-                Intent intentQR = new Intent(context, QrCodeActivity.class);
-                myStartActivityForResult((FragmentActivity) getContext(), intentQR, REQ_CODE_QRCODE, new OnActivityResult() {
-                    @Override
-                    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-                        if(data != null) MTv.setText(data.getStringExtra(ResultQrCode));
-                    }
-                });
-            }
-        });
-
-
     }
 
     //TODO : ----------------------------------------- Get Permission -------------------------------------------
