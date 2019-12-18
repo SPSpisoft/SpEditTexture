@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         easyTextEditor2.setTextColor(R.color.colorPrimary).setOnFocusStart(true);
         Typeface TF_Tahoma = Typeface.createFromAsset(getBaseContext() .getAssets(), "tahoma.ttf" + "");
 
-        easyTextEditor0.setNextFocus(easyTextEditor)
+        easyTextEditor0.setNextFocus(easyTextEditor, "بعدی")
                 .setUses(MainActivity.this, true, true)
                 .setInfo(getResources().getString(R.string.app_name))
                 .setHint("hint")
@@ -45,9 +45,10 @@ public class MainActivity extends AppCompatActivity {
                 .setList(new String[] { "Android List View", "Adapter implementation"});
 
 //                .SetUses(MainActivity.this, false, false);
-        easyTextEditor.setNextFocus(VT)
+        easyTextEditor.setNextFocus(VT, VT.getText().toString())
                 .setTextColor(Color.RED)
-                .setMode(EasyTextEditor.startMode.Voice);
+                .setThousandSP(true)
+                .setMode(EasyTextEditor.startMode.Typing);
 
         easyTextEditor2.setOnActionClickListener(new EasyTextEditor.OnEditorActionListener() {
             @Override
@@ -60,16 +61,19 @@ public class MainActivity extends AppCompatActivity {
         final LayoutInflater inflater = (LayoutInflater) MainActivity.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         LlyPrice.removeAllViews();
 
-        final View vi = inflater.inflate(R.layout.view_kind_price, null);
-        vi.setBackgroundResource(R.drawable.background_button_shape_3);
-        final ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        LlyPrice.addView(vi, layoutParams);
-        TextView TvTitle_BP = vi.findViewById(R.id.tvTitle);
-        TextView TvPercent_BP = vi.findViewById(R.id.tvPercent);
-        final EasyTextEditor EtTitle_BP = vi.findViewById(R.id.etPrice);
-        TvTitle_BP.setText("lkjlkj");
-        TvPercent_BP.setText("++");
-        EtTitle_BP.setText("123456789");
+        for (int i = 0; i < 4; i++) {
+            final View vi = inflater.inflate(R.layout.view_kind_price, null);
+            vi.setBackgroundResource(R.drawable.background_button_shape_3);
+            final ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            LlyPrice.addView(vi, layoutParams);
+            TextView TvTitle_BP = vi.findViewById(R.id.tvTitle);
+            TextView TvPercent_BP = vi.findViewById(R.id.tvPercent);
+            final EasyTextEditor EtTitle_BP = vi.findViewById(R.id.etPrice);
+            TvTitle_BP.setText("AA"+i);
+            TvPercent_BP.setText("++");
+            EtTitle_BP.setText(String.valueOf(123*i));
+            EtTitle_BP.setThousandSP(true);
+        }
 
     }
 }

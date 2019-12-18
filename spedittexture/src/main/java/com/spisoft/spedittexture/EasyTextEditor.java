@@ -58,6 +58,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Locale;
+import java.util.StringTokenizer;
 
 public class EasyTextEditor extends RelativeLayout implements RecognitionListener {
 
@@ -107,6 +108,7 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
     private View vNext, vPrev;
     private TextView MNextBtn, MPrevBtn;
     private RelativeLayout RlyBottom;
+    private boolean ThousandsSeparator;
 
     public EasyTextEditor(Context context) {
         super(context);
@@ -168,12 +170,14 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
             }
         });
 
-
+//496538
+//        8800231500
         if (attrs != null) {
             final TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.EasyTextEditor, 0, 0);
 
             MMode = typedArray.getInt(R.styleable.EasyTextEditor_StartMode, 0);
-            MMultiLine= typedArray.getBoolean(R.styleable.EasyTextEditor_MultiLine,false);
+            MMultiLine = typedArray.getBoolean(R.styleable.EasyTextEditor_MultiLine,false);
+            ThousandsSeparator = typedArray.getBoolean(R.styleable.EasyTextEditor_ThousandsSeparator,false);
             inputType = typedArray.getInt(R.styleable.EasyTextEditor_android_inputType, EditorInfo.TYPE_TEXT_VARIATION_NORMAL);
             imeOptions = typedArray.getInt(R.styleable.EasyTextEditor_android_imeOptions, 0);
             MTv.setGravity(typedArray.getInt(R.styleable.EasyTextEditor_android_gravity, Gravity.NO_GRAVITY));
@@ -222,7 +226,6 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
             if(!MOptional)
                 imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
         }
-
     }
 
     //TODO: --------------------------------------------- Save & Restore State -----------------------------------------------
@@ -409,10 +412,10 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
         return this;
     }
 
-//    public EasyTextEditor setThousandSP(boolean thousandSP){
-//        MThousandSP = thousandSP;
-//        return this;
-//    }
+    public EasyTextEditor setThousandSP(boolean thousandSP){
+        ThousandsSeparator = thousandSP;
+        return this;
+    }
 
 //    public EasyTextEditor setTextSize(float textSize){
 //        MTextSize = textSize;
@@ -666,6 +669,7 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+//                eAddPrice.addTextChangedListener(new GlobalFncCls.NumberTextWatcherForThousand(eAddPrice));
                 MTv.setText(s);
                 ListFilter(s.toString());
             }
@@ -674,6 +678,32 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
             public void afterTextChanged(Editable s) {
                 if(mListener!=null)
                     mListener.onEvent();
+
+                if(ThousandsSeparator) {
+                    try {
+                        MText.removeTextChangedListener(this);
+                        String value = MText.getText().toString();
+
+                        if (value != null && !value.equals("")) {
+                            if (value.startsWith(".")) {
+                                MText.setText("0.");
+                            }
+                            if (value.startsWith("0") && !value.startsWith("0.")) {
+                                MText.setText("");
+                            }
+                            String str = MText.getText().toString().replaceAll(",", "");
+                            if (!value.equals(""))
+                                MText.setText(getDecimalFormattedString(str));
+                            MText.setSelection(MText.getText().toString().length());
+                        }
+                        MTv.setText(MText.getText());
+                        MText.addTextChangedListener(this);
+                        return;
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                        MText.addTextChangedListener(this);
+                    }
+                }
             }
         });
 
@@ -690,6 +720,43 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
                 });
             }
         });
+
+    }
+
+    public static String getDecimalFormattedString(String value)
+    {
+        StringTokenizer lst = new StringTokenizer(value, ".");
+        String str1 = value;
+        String str2 = "";
+        if (lst.countTokens() > 1)
+        {
+            str1 = lst.nextToken();
+            str2 = lst.nextToken();
+        }
+        String str3 = "";
+        int i = 0;
+        int j = -1 + str1.length();
+        if (str1.charAt( -1 + str1.length()) == '.')
+        {
+            j--;
+            str3 = ".";
+        }
+        for (int k = j;; k--)
+        {
+            if (k < 0)
+            {
+                if (str2.length() > 0)
+                    str3 = str3 + "." + str2;
+                return str3;
+            }
+            if (i == 3)
+            {
+                str3 = "," + str3;
+                i = 0;
+            }
+            str3 = str1.charAt(k) + str3;
+            i++;
+        }
 
     }
 

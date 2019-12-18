@@ -34,7 +34,7 @@
             android:layoutDirection="ltr"
             android:textAlignment="center"
             android:padding="@dimen/sps_lpr_sz_20"
-            android:inputType="text"
+            android:inputType="number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:ignore="MissingConstraints" />
@@ -56,8 +56,6 @@
             android:layout_height="wrap_content"
             android:inputType="text"
             tools:ignore="MissingConstraints" />
-
-
 
         <ScrollView
             android:layout_width="match_parent"

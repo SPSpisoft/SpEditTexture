@@ -13,6 +13,7 @@
         <attr name="BorderPadding" format="dimension"/>
         <attr name="BorderMargin" format="dimension"/>
         <attr name="MultiLine" format="boolean"/>
+        <attr name="ThousandsSeparator" format="boolean"/>
         <attr name="Hint" format="string"/>
         <attr name="ZTextSize" format="float"/>
 
