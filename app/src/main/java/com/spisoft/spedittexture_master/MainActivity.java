@@ -36,16 +36,18 @@ public class MainActivity extends AppCompatActivity {
         Typeface TF_Tahoma = Typeface.createFromAsset(getBaseContext() .getAssets(), "tahoma.ttf" + "");
 
         easyTextEditor0.setNextFocus(easyTextEditor, "بعدی")
+                .setPrevFocus(easyTextEditor0, "قبلی")
                 .setUses(MainActivity.this, true, true)
                 .setInfo(getResources().getString(R.string.app_name))
-                .setHint("hint")
-                .setOptional(true)
+                .setHint("لیستی")
+                .setOptional(false)
                 .setTypeFace(TF_Tahoma)
                 .setMode(EasyTextEditor.startMode.Typing)
                 .setList(new String[] { "Android List View", "Adapter implementation"});
 
 //                .SetUses(MainActivity.this, false, false);
-        easyTextEditor.setNextFocus(VT, VT.getText().toString())
+        easyTextEditor.setNextFocus(easyTextEditor2, "بعدی")
+                .setPrevFocus(easyTextEditor0, easyTextEditor0.getHint())
                 .setTextColor(Color.RED)
                 .setThousandSP(true)
                 .setMode(EasyTextEditor.startMode.Typing);

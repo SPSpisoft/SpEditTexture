@@ -170,8 +170,6 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
             }
         });
 
-//496538
-//        8800231500
         if (attrs != null) {
             final TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.EasyTextEditor, 0, 0);
 
@@ -323,7 +321,7 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
         MText.setText(matches.get(0));
         MText.setSelection(matches.get(0).length());
 //        MBtn.callOnClick();
-        VerifyText(imeOptions);
+        VerifyNext(imeOptions);
     }
 
     @Override
@@ -378,18 +376,23 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
     }
 
     public EasyTextEditor setHint(String hint){
+        MHint = hint;
         MTv.setHint(hint);
         return this;
     }
 
-    public EasyTextEditor setPrevFocus(View prevEasyTextEditor, String prevText){
-        vPrev = prevEasyTextEditor;
+    public String getHint(){
+        return MHint;
+    }
+
+    public EasyTextEditor setPrevFocus(View prevFocusView, String prevText){
+        vPrev = prevFocusView;
         MPrevText = prevText;
         return this;
     }
 
-    public EasyTextEditor setNextFocus(View nextEasyTextEditor, String nextText){
-        vNext = nextEasyTextEditor;
+    public EasyTextEditor setNextFocus(View nextFocusView, String nextText){
+        vNext = nextFocusView;
         MNextText = nextText;
         imeOptions = EditorInfo.IME_ACTION_NEXT;
         return this;
@@ -572,16 +575,16 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
             if (MNextText != null) MNextBtn.setText(MNextText);
             MNextBtn.setOnClickListener(new OnClickListener() {
                 @Override
-                public void onClick(View v) { VerifyText(imeOptions); }
+                public void onClick(View v) { VerifyNext(imeOptions); }
             });
         }
         if(vPrev != null) {
             MPrevBtn = rootView.findViewById(R.id.btnPrev);
             MPrevBtn.setVisibility(VISIBLE);
-            if (MPrevText != null) MPrevBtn.setText(MNextText);
+            if (MPrevText != null) MPrevBtn.setText(MPrevText);
             MPrevBtn.setOnClickListener(new OnClickListener() {
                 @Override
-                public void onClick(View v) { vPrev.requestFocus(); }
+                public void onClick(View v) { VerifyPrev(); }
             });
         }
 
@@ -621,7 +624,7 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     String itemValue = (String) listView.getItemAtPosition(position);
                     MText.setText(itemValue);
-                    VerifyText(imeOptions);
+                    VerifyNext(imeOptions);
                 }
             });
             listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -652,7 +655,7 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-                VerifyText(actionId);
+                VerifyNext(actionId);
                 if(mActionListener != null) mActionListener.onEvent();
                 return false;
             }
@@ -767,7 +770,7 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
         }
     }
 
-    public void VerifyText(int actionId) {
+    public void VerifyNext(int actionId) {
         AlertDialogText.dismiss();
         if(actionId == EditorInfo.IME_ACTION_NEXT){
             if(vNext != null) {
@@ -775,6 +778,14 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
                 else vNext.requestFocus();
             }
         }
+    }
+
+    public void VerifyPrev() {
+        AlertDialogText.dismiss();
+            if(vPrev != null) {
+                if (vPrev instanceof EasyTextEditor) vPrev.callOnClick();
+                else vPrev.requestFocus();
+            }
     }
 
     //TODO : ----------------------------------------- Get Permission -------------------------------------------

@@ -31,7 +31,6 @@
 
         <com.spisoft.spedittexture.EasyTextEditor
             android:id="@+id/bet"
-            android:layoutDirection="ltr"
             android:textAlignment="center"
             android:padding="@dimen/sps_lpr_sz_20"
             android:inputType="number"
