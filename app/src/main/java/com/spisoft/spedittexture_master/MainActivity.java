@@ -9,9 +9,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.spisoft.spedittexture.EasyTextEditor;
 
@@ -45,12 +48,28 @@ public class MainActivity extends AppCompatActivity {
                 .setMode(EasyTextEditor.startMode.Typing)
                 .setList(new String[] { "Android List View", "Adapter implementation"});
 
+        easyTextEditor0.buttonPlusView(true, R.drawable.ic_camera_enhance_black_24dp).setOnPlusClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this,"mmm",Toast.LENGTH_SHORT).show();
+            }
+        });
+//        vv.setImageResource(R.drawable.ic_camera_enhance_black_24dp);
+
+
 //                .SetUses(MainActivity.this, false, false);
         easyTextEditor.setNextFocus(easyTextEditor2, "بعدی")
                 .setPrevFocus(easyTextEditor0, easyTextEditor0.getHint())
                 .setTextColor(Color.RED)
                 .setThousandSP(true)
                 .setMode(EasyTextEditor.startMode.Typing);
+
+        easyTextEditor.buttonPlusView(true, R.drawable.ic_barcode_black_24dp).setOnPlusClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this,"kkjkjkj",Toast.LENGTH_SHORT).show();
+            }
+        });
 
         easyTextEditor2.setOnActionClickListener(new EasyTextEditor.OnEditorActionListener() {
             @Override

@@ -62,11 +62,26 @@
         <EditText
             android:id="@+id/mText"
             android:imeOptions="flagNoFullscreen|actionDone"
+            android:layout_toStartOf="@+id/iSearch"
+            android:layout_marginEnd="@dimen/sps_lpr_5"
+            android:layout_marginStart="@dimen/sps_lpr_5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:inputType="text"
             android:textSize="@dimen/sps_txt_sz_16" />
+
+        <ImageView
+            android:id="@+id/iSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="@dimen/sps_lpr_5"
+            android:src="@mipmap/bga_pp_ic_cb_checked"
+            android:layout_centerVertical="true"
+            android:paddingStart="@dimen/sps_lpr_5"
+            android:paddingEnd="@dimen/sps_lpr_5"
+            android:visibility="gone" />
 
     </RelativeLayout>
 
@@ -148,18 +163,6 @@
                 app:iconSize="@dimen/sps_lpr_sz_30"
                 app:iconText="@string/ic_holo_mic" />
 
-            <com.github.johnkil.print.PrintView
-                android:id="@+id/iSearch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_gravity="center"
-                android:paddingStart="@dimen/sps_lpr_5"
-                android:paddingEnd="@dimen/sps_lpr_5"
-                android:visibility="gone"
-                app:iconColor="@android:color/darker_gray"
-                app:iconSize="@dimen/sps_lpr_sz_30"
-                app:iconText="@string/ic_holo_search" />
 
         </LinearLayout>
 

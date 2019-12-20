@@ -18,6 +18,7 @@ import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.LayoutDirection;
@@ -45,6 +46,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 
+import com.github.johnkil.print.PrintButton;
 import com.github.johnkil.print.PrintView;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
@@ -72,7 +74,7 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
     private ProgressBar circleProgress;
     private EditText MText;
     private TextView MCnt;
-    private PrintView MBtn;
+    private ImageView MBtn;
     private PrintView MBtnVoice;
     private ImageView MBtnQrCode;
     private Context mContext;
@@ -98,6 +100,7 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
     private boolean MThousandSP = false;
     OnEditorActionListener mActionListener;
     OnChangeTextListener mListener;
+    OnClickListener mPlusListener;
     private boolean MMultiLine;
     private boolean MEnabled = true;
     private boolean MOnFocusStart = false;
@@ -109,6 +112,9 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
     private TextView MNextBtn, MPrevBtn;
     private RelativeLayout RlyBottom;
     private boolean ThousandsSeparator;
+    private boolean MBtnShow;
+    private int MBtnIcon;
+    private RelativeLayout RlyText;
 
     public EasyTextEditor(Context context) {
         super(context);
@@ -344,6 +350,14 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
         return this;
     }
 
+    public interface OnPlusClickListener {
+        void onEvent();
+    }
+
+    public void setOnPlusClickListener(OnClickListener eventListener) {
+        mPlusListener = eventListener;
+    }
+
     public interface OnChangeTextListener {
         void onEvent();
     }
@@ -360,10 +374,10 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
         mActionListener = eventListener;
     }
 
-    public EasyTextEditor buttonPlusView(Object tag){
-        MBtn.setTag(tag);
-        MBtn.setVisibility(VISIBLE);
-        return this.getRootView().findViewWithTag(tag);
+    public EasyTextEditor buttonPlusView(boolean b, int icon){
+        MBtnIcon = icon;
+        MBtnShow = b;
+        return this;
     }
 
     public String getText(){
@@ -477,7 +491,7 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
 //    public static final int MODE_1 = 1;
     //TODO: --------------------------------------- Activity Result ----------------------------------------------------
 
-    public static void myStartActivityForResult(FragmentActivity act, Intent in, int requestCode, OnActivityResult cb) {
+    private static void myStartActivityForResult(FragmentActivity act, Intent in, int requestCode, OnActivityResult cb) {
         Fragment aux = new FragmentForResult(cb);
         FragmentManager fm = act.getSupportFragmentManager();
         fm.beginTransaction().add(aux, "FRAGMENT_TAG").commit();
@@ -485,12 +499,12 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
         aux.startActivityForResult(in, requestCode);
     }
 
-    public interface OnActivityResult {
+    private interface OnActivityResult {
         void onActivityResult(int requestCode, int resultCode, Intent data);
     }
 
     @SuppressLint("ValidFragment")
-    public static class FragmentForResult extends Fragment {
+    private static class FragmentForResult extends Fragment {
         private OnActivityResult cb;
         public FragmentForResult(OnActivityResult cb) {
             this.cb = cb;
@@ -505,7 +519,7 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
     }
     //TODO: ------------------------------------------- Create Dialog -----------------------------------------------------------
 
-    public void dialogEditText(final Context context, final List<String> myList, final TextView txtSel, final TextView SubTxtSel){
+    private void dialogEditText(final Context context, final List<String> myList, final TextView txtSel, final TextView SubTxtSel){
 
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         final AlertDialog.Builder alertDialogText = new AlertDialog.Builder(new ContextThemeWrapper(context, R.style.myDialog));
@@ -568,7 +582,11 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
         MBtnVoice = rootView.findViewById(R.id.iVoice);
         MBtnQrCode = rootView.findViewById(R.id.iQr);
         MTHint = rootView.findViewById(R.id.tHint);
+        RlyText = rootView.findViewById(R.id.lyText);
         RlyBottom = rootView.findViewById(R.id.rlyBottom);
+        if(MBtnShow) MBtn.setVisibility(VISIBLE);
+        if(MBtnIcon > 0) MBtn.setImageResource(MBtnIcon);
+
         if(vNext != null) {
             MNextBtn = rootView.findViewById(R.id.btnNext);
             MNextBtn.setVisibility(VISIBLE);
@@ -640,7 +658,14 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
         }
 
         //---------------------
-        MBtn.setIconFont(TF_Holo);
+//        MBtn.setIconFont(TF_Holo);
+        MBtn.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mPlusListener != null) mPlusListener.onClick(v);
+            }
+        });
+
         MBtnVoice.setIconFont(TF_Holo);
 
         MBtnVoice.setOnClickListener(new View.OnClickListener() {
@@ -650,7 +675,7 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
             }
         });
 
-        MBtn.setVisibility(GONE);
+//        MBtn.setVisibility(GONE);
         MText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -663,6 +688,8 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
 
         MText.setInputType(inputType);
         MText.setImeOptions(imeOptions | EditorInfo.IME_FLAG_NO_EXTRACT_UI);
+
+        if(inputType == InputType.TYPE_CLASS_NUMBER) RlyText.setLayoutDirection(LAYOUT_DIRECTION_LTR);
 
         MText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -726,7 +753,7 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
 
     }
 
-    public static String getDecimalFormattedString(String value)
+    private static String getDecimalFormattedString(String value)
     {
         StringTokenizer lst = new StringTokenizer(value, ".");
         String str1 = value;
@@ -763,14 +790,14 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
 
     }
 
-    public void ListFilter(String mText) {
+    private void ListFilter(String mText) {
         if(listView.getVisibility() == View.VISIBLE) {
             listAdapter.getFilter().filter(mText);
             listAdapter.notifyDataSetChanged();
         }
     }
 
-    public void VerifyNext(int actionId) {
+    private void VerifyNext(int actionId) {
         AlertDialogText.dismiss();
         if(actionId == EditorInfo.IME_ACTION_NEXT){
             if(vNext != null) {
@@ -780,7 +807,7 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
         }
     }
 
-    public void VerifyPrev() {
+    private void VerifyPrev() {
         AlertDialogText.dismiss();
             if(vPrev != null) {
                 if (vPrev instanceof EasyTextEditor) vPrev.callOnClick();
@@ -848,12 +875,12 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
         }
     }
 
-    public static String doubleToDecimal(double mValue){
+    private static String doubleToDecimal(double mValue){
         dcFormat = new DecimalFormat("#,###");
         return arabicToDecimal(String.valueOf(dcFormat.format(mValue)));
     }
 
-    public static String arabicToDecimal(String number) {
+    private static String arabicToDecimal(String number) {
 
         char[] chars = new char[number.length()];
         for(int i=0;i<number.length();i++) {
