@@ -662,6 +662,8 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
         MBtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                AlertDialogText.hide();
                 if(mPlusListener != null) mPlusListener.onClick(v);
             }
         });
@@ -682,6 +684,7 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
                 imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
                 VerifyNext(actionId);
                 if(mActionListener != null) mActionListener.onEvent();
+                else if(MBtnShow) MBtn.callOnClick();
                 return false;
             }
         });
