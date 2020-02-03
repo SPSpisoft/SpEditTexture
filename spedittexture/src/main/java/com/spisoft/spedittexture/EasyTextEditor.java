@@ -804,6 +804,7 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
         AlertDialogText.dismiss();
         if(actionId == EditorInfo.IME_ACTION_NEXT){
             if(vNext != null) {
+                imm.hideSoftInputFromWindow(MText.getWindowToken(), 0);
                 if (vNext instanceof EasyTextEditor) vNext.callOnClick();
                 else vNext.requestFocus();
             }
