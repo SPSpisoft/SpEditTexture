@@ -30,7 +30,8 @@ public class MainActivity extends AppCompatActivity {
         EasyTextEditor easyTextEditor = findViewById(R.id.bet);
 //        easyTextEditor.setPadding(R.dimen.sps_lpr_sz_20,R.dimen.sps_lpr_sz_20,R.dimen.sps_lpr_sz_20,R.dimen.sps_lpr_sz_20);
         easyTextEditor.setInfo("cc").setBackgroundResource(R.drawable.background_button_shape_2);
-        easyTextEditor.setHint("Hint").setUses(MainActivity.this, true, true);
+        easyTextEditor.setNextFocus(easyTextEditor0, "بعدی")
+                .setHint("Hint").setUses(MainActivity.this, true, true);
         easyTextEditor.setEnable(true);
 
         final EasyTextEditor easyTextEditor2 = findViewById(R.id.bet2);
@@ -38,14 +39,13 @@ public class MainActivity extends AppCompatActivity {
         easyTextEditor2.setTextColor(R.color.colorPrimary).setOnFocusStart(true);
         Typeface TF_Tahoma = Typeface.createFromAsset(getBaseContext() .getAssets(), "tahoma.ttf" + "");
 
-        easyTextEditor0.setNextFocus(easyTextEditor, "بعدی")
-                .setPrevFocus(easyTextEditor0, "قبلی")
+        easyTextEditor0.setNextFocus(easyTextEditor2, "بعدی")
+                .setPrevFocus(easyTextEditor, "قبلی")
                 .setUses(MainActivity.this, true, true)
                 .setInfo(getResources().getString(R.string.app_name))
                 .setHint("لیستی")
-                .setOptional(false)
+                .setOptional(true)
                 .setTypeFace(TF_Tahoma)
-                .setMode(EasyTextEditor.startMode.Typing)
                 .setList(new String[] { "Android List View", "Adapter implementation"});
 
         easyTextEditor0.buttonPlusView(true, R.drawable.ic_camera_enhance_black_24dp).setOnPlusClickListener(new View.OnClickListener() {
@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 //                .SetUses(MainActivity.this, false, false);
-        easyTextEditor.setNextFocus(easyTextEditor2, "بعدی")
+        easyTextEditor.setNextFocus(easyTextEditor0, "بعدی")
                 .setPrevFocus(easyTextEditor0, easyTextEditor0.getHint())
                 .setTextColor(Color.RED)
                 .setThousandSP(true)

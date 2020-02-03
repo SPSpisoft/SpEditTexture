@@ -454,7 +454,10 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
 
     public EasyTextEditor setOptional(boolean optional){
         MOptional = optional;
-        if(MOptional) MiOptional.setVisibility(VISIBLE);
+        if(MOptional) {
+            MiOptional.setVisibility(VISIBLE);
+            MMode = 3;
+        }
         return this;
     }
 
@@ -471,7 +474,7 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
         return this;
     }
 
-    public enum startMode { Typing, Voice, BarcodeReader }
+    public enum startMode { Typing, Voice, BarcodeReader, SelectItem }
 
     public EasyTextEditor setMode(startMode mode){
         MMode = mode.ordinal();
@@ -558,6 +561,10 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
                         break;
                     case 1:
                         MBtnVoice.callOnClick();
+                        break;
+                    case 3:
+//                        CloseSoftKey();
+                        imm.hideSoftInputFromWindow(MText.getWindowToken(), 0);
                         break;
                 }
             }
