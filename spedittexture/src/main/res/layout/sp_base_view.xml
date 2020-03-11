@@ -8,14 +8,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <ProgressBar
+        android:id="@+id/cProgress"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="@dimen/sps_lpr_sz_20"
+        android:layout_marginEnd="@dimen/sps_lpr_sz_20"
+        android:background="@android:color/transparent"
+        android:foregroundGravity="top"
+        android:indeterminateDrawable="@drawable/progress_indeterminate"
+        android:progress="70"
+        android:progressDrawable="@drawable/progress_green"
+        android:visibility="gone" />
+
     <EditText
         android:id="@+id/mTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
+        android:imeOptions="actionSearch"
         android:layout_toStartOf="@+id/rlySync"
-        android:editable="false"
         android:padding="@dimen/sps_lpr_10"
         android:textSize="@dimen/sps_txt_sz_16" />
 
@@ -31,6 +47,8 @@
 
     <LinearLayout
         android:id="@+id/rlySync"
+        android:layout_marginStart="@dimen/sps_lpr_5"
+        android:layout_marginEnd="@dimen/sps_lpr_5"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
         android:layout_width="wrap_content"
@@ -61,6 +79,29 @@
             app:iconFont="holo-icon-font.ttf"
             app:iconSize="@dimen/sps_lpr_sz_30"
             app:iconText="@string/ic_holo_about" />
+
+        <com.github.johnkil.print.PrintView
+            android:id="@+id/iVoice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingStart="@dimen/sps_lpr_5"
+            android:paddingEnd="@dimen/sps_lpr_5"
+            android:visibility="gone"
+            app:iconColor="@android:color/darker_gray"
+            app:iconFont="holo-icon-font.ttf"
+            app:iconSize="@dimen/sps_lpr_sz_30"
+            app:iconText="@string/ic_holo_mic" />
+
+        <ImageView
+            android:id="@+id/iQr"
+            android:visibility="gone"
+            android:src="@drawable/ic_action_qr_code"
+            android:layout_gravity="center"
+            android:paddingStart="@dimen/sps_lpr_5"
+            android:paddingEnd="@dimen/sps_lpr_5"
+            android:layout_width="@dimen/sps_lpr_sz_30"
+            android:layout_height="@dimen/sps_lpr_sz_30" />
 
     </LinearLayout>
 

@@ -27,15 +27,34 @@ public class MainActivity extends AppCompatActivity {
 
         EditText VT = findViewById(R.id.vt);
         EasyTextEditor easyTextEditor0 = findViewById(R.id.bet0);
-        EasyTextEditor easyTextEditor = findViewById(R.id.bet);
+        final EasyTextEditor easyTextEditor = findViewById(R.id.bet);
 //        easyTextEditor.setPadding(R.dimen.sps_lpr_sz_20,R.dimen.sps_lpr_sz_20,R.dimen.sps_lpr_sz_20,R.dimen.sps_lpr_sz_20);
-        easyTextEditor.setInfo("cc").setBackgroundResource(R.drawable.background_button_shape_2);
-        easyTextEditor.setNextFocus(easyTextEditor0, "بعدی")
-                .setHint("Hint").setUses(MainActivity.this, true, true);
+        easyTextEditor
+                .setHint("Hint").setUses(MainActivity.this, true, true)
+                .setDialogMode(false)
+                .setBackgroundResource(R.drawable.background_button_shape_2);
+//        easyTextEditor.setOnImeClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Toast.makeText(MainActivity.this, easyTextEditor.getText() ,Toast.LENGTH_SHORT).show();
+//            }
+//        });
+
+        easyTextEditor.setOnImeClickListener(new EasyTextEditor.OnImeClickListener() {
+            @Override
+            public void onEvent() {
+                Toast.makeText(MainActivity.this, easyTextEditor.getText() ,Toast.LENGTH_SHORT).show();
+            }
+        });
+//        easyTextEditor
+//                .setNextFocus(easyTextEditor0, "بعدی");
         easyTextEditor.setEnable(true);
 
         final EasyTextEditor easyTextEditor2 = findViewById(R.id.bet2);
-        easyTextEditor2.setOnFocusStart(true).setBackgroundResource(R.drawable.background_button_shape_2);
+        easyTextEditor2
+                .setUses(MainActivity.this, true, true)
+                .setDialogMode(true)
+                .setOnFocusStart(true).setBackgroundResource(R.drawable.background_button_shape_2);
         easyTextEditor2.setTextColor(R.color.colorPrimary).setOnFocusStart(true);
         Typeface TF_Tahoma = Typeface.createFromAsset(getBaseContext() .getAssets(), "tahoma.ttf" + "");
 
