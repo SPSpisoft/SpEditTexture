@@ -198,6 +198,7 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
 
             MMode = typedArray.getInt(R.styleable.EasyTextEditor_StartMode, 0);
             MMultiLine = typedArray.getBoolean(R.styleable.EasyTextEditor_MultiLine,false);
+            MDialogMode = typedArray.getBoolean(R.styleable.EasyTextEditor_DialogMode,true);
             ThousandsSeparator = typedArray.getBoolean(R.styleable.EasyTextEditor_ThousandsSeparator,false);
             inputType = typedArray.getInt(R.styleable.EasyTextEditor_android_inputType, EditorInfo.TYPE_TEXT_VARIATION_NORMAL);
             imeOptions = typedArray.getInt(R.styleable.EasyTextEditor_android_imeOptions, 0);
