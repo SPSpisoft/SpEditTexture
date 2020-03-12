@@ -244,10 +244,11 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
         MBtnVoice = rootView.findViewById(R.id.iVoice);
         circleProgress = rootView.findViewById(R.id.cProgress);
 
-        if(!MDialogMode){
-            if(UseBarcodeScanner) MiQr.setVisibility(VISIBLE);
-            if(UseSpeechToText) MBtnVoice.setVisibility(VISIBLE);
-        }
+//        if(!MDialogMode){
+//            if(UseBarcodeScanner) MiQr.setVisibility(VISIBLE);
+//            if(UseSpeechToText) MBtnVoice.setVisibility(VISIBLE);
+//        }
+        RefreshUses();
 
         MiQr.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -589,7 +590,9 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
     }
 
     private void RefreshUses() {
+        MTv.setHint("AAAAAAAAA");
         if(!MDialogMode) {
+            MTv.setHint("BBBBBBBB");
             if (UseBarcodeScanner) MiQr.setVisibility(VISIBLE);
             if (UseSpeechToText) MBtnVoice.setVisibility(VISIBLE);
         }
