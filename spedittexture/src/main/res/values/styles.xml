@@ -8,6 +8,11 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="AppTheme.Dark" parent="AppTheme">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+    </style>
+
     <style name="AppTheme.Dialog" parent="Theme.AppCompat.Dialog">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

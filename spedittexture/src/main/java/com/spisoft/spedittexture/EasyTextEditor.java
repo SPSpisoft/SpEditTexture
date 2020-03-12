@@ -591,9 +591,7 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
     }
 
     private void RefreshUses() {
-        MTv.setHint("AAAAAAAAA");
         if(!MDialogMode) {
-            MTv.setHint("BBBBBBBB");
             if (UseBarcodeScanner) MiQr.setVisibility(VISIBLE);
             if (UseSpeechToText) MBtnVoice.setVisibility(VISIBLE);
         }

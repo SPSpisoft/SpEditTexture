@@ -4,9 +4,12 @@
 
     <application>
         <activity
+            android:theme="@style/AppTheme.Dark"
             android:name=".QrCodeActivity"
-            android:label="QRCode/Barcode Reader"></activity>
+            android:label="QRCode/Barcode Reader">
+        </activity>
     </application>
+
     <uses-feature android:name="android.hardware.camera.autofocus" />
     <uses-feature android:name="android.hardware.camera" />
 
