@@ -212,6 +212,7 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
             MLayoutDirection = typedArray.getInt(R.styleable.EasyTextEditor_android_layoutDirection, LayoutDirection.LOCALE);
             MNextFocusDownId = typedArray.getInt(R.styleable.EasyTextEditor_android_nextFocusDown, 0);
             MHint = typedArray.getString(R.styleable.EasyTextEditor_Hint);
+
             MTvPadding = (int) typedArray.getDimension(R.styleable.EasyTextEditor_BorderPadding, R.dimen.sps_lpr_10);
 //            MBackground = typedArray.getInt(R.styleable.EasyTextEditor_android_layoutDirection, LayoutDirection.LOCALE);
             typedArray.recycle();
