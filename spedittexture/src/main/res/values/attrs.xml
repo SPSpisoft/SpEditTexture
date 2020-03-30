@@ -11,7 +11,6 @@
 
     <declare-styleable name="EasyTextEditor">
         <attr name="BorderPadding" format="dimension"/>
-        <attr name="BorderMargin" format="dimension"/>
         <attr name="MultiLine" format="boolean"/>
         <attr name="DialogMode" format="boolean"/>
         <attr name="ThousandsSeparator" format="boolean"/>
@@ -28,7 +27,6 @@
         <attr name="android:typeface"/>
         <attr name="android:textSize"/>
         <attr name="android:textColor"/>
-        <attr name="android:padding"/>
         <attr name="android:gravity"/>
         <attr name="android:layoutDirection"/>
         <attr name="android:nextFocusDown"/>
