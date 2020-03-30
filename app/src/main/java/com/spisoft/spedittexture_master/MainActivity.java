@@ -67,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
                 .setTypeFace(TF_Tahoma)
                 .setList(new String[] { "Android List View", "Adapter implementation"});
 
+
         easyTextEditor0.buttonPlusView(true, R.drawable.ic_camera_enhance_black_24dp).setOnPlusClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
