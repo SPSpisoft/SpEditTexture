@@ -32,7 +32,7 @@
         android:layout_centerVertical="true"
         android:imeOptions="actionSearch"
         android:layout_toStartOf="@+id/rlySync"
-        android:padding="@dimen/sps_lpr_5"
+        android:padding="@dimen/sps_lpr_10"
         android:textSize="@dimen/sps_txt_sz_16" />
 
 <!--    <RelativeLayout-->
