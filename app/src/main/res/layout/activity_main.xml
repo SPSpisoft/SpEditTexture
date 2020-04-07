@@ -24,8 +24,9 @@
         <com.spisoft.spedittexture.EasyTextEditor
             android:id="@+id/bet"
             android:textAlignment="center"
-            app:BorderPadding="@dimen/sps_lpr_5"
-            android:padding="@dimen/sps_lpr_sz_40"
+            app:BorderPadding="20"
+            android:layout_margin="@dimen/sps_lpr_sz_20"
+            android:textSize="@dimen/sps_txt_sz_16"
             android:inputType="number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
@@ -50,10 +51,14 @@
 
         <com.spisoft.spedittexture.EasyTextEditor
             android:id="@+id/bet2"
-            android:layout_margin="@dimen/sps_lpr_sz_20"
+            android:background="@color/colorPrimaryDark"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
+            android:textSize="@dimen/sps_txt_sz_6"
+            android:padding="30dp"
+            app:BorderPadding="0"
+            app:ZTextSize="3"
             tools:ignore="MissingConstraints" />
 
         <ScrollView

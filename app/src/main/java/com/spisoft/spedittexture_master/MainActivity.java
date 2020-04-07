@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         easyTextEditor0.setNextFocus(easyTextEditor2, "بعدی")
                 .setPrevFocus(easyTextEditor, "قبلی")
                 .setUses(MainActivity.this, true, true)
-                .setInfo(getResources().getString(R.string.app_name))
+                .setInfo("TEXT2")
                 .setHint("لیستی")
                 .setOptional(true)
                 .setTypeFace(TF_Tahoma)

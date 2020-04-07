@@ -42,14 +42,14 @@
     <dimen name="sps_txt_sz_10" tools:ignore="MissingDefaultResource">6sp</dimen>
     <dimen name="sps_txt_sz_12" tools:ignore="MissingDefaultResource">7sp</dimen>
     <dimen name="sps_txt_sz_14" tools:ignore="MissingDefaultResource">8sp</dimen>
-    <dimen name="sps_txt_sz_16">10dip</dimen>
-    <dimen name="sps_txt_sz_18">11dip</dimen>
-    <dimen name="sps_txt_sz_20">12dip</dimen>
-    <dimen name="sps_txt_sz_22">13dip</dimen>
+    <dimen name="sps_txt_sz_16">10sp</dimen>
+    <dimen name="sps_txt_sz_18">11sp</dimen>
+    <dimen name="sps_txt_sz_20">12sp</dimen>
+    <dimen name="sps_txt_sz_22">13sp</dimen>
     <dimen name="sps_lpr_150">90dp</dimen>
     <dimen name="sps_lpr_5">3dp</dimen>
     <dimen name="sps_lpr_7">5dp</dimen>
     <dimen name="sps_lpr_10">7dp</dimen>
-    <dimen name="sps_txt_sz_40">25dip</dimen>
+    <dimen name="sps_txt_sz_40">25sp</dimen>
 
 </resources>

@@ -33,6 +33,7 @@ import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -106,6 +107,7 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
     private int MMode;
     private Typeface MTypeFace = null;
     private float MTextSize, ZTextSize;
+    private int MTvPadding;
     private int MTextColor = -1;
     private int MLayoutDirection;
     private boolean MThousandSP = false;
@@ -207,13 +209,13 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
 //            MTv.typedArray.getInt(R.styleable.EasyTextEditor_android_layout_gravity, Gravity.NO_GRAVITY);
 //            MTypeFace = typedArray.getValue(R.styleable.EasyTextEditor_android_typeface,Typeface.NORMAL);
             MTextSize = typedArray.getDimension(R.styleable.EasyTextEditor_android_textSize, 17f);
-            ZTextSize = typedArray.getDimension(R.styleable.EasyTextEditor_ZTextSize, 1);
+            ZTextSize = typedArray.getFloat(R.styleable.EasyTextEditor_ZTextSize, 1);
             MTextColor = typedArray.getColor(R.styleable.EasyTextEditor_android_textColor, Color.BLACK);
             MLayoutDirection = typedArray.getInt(R.styleable.EasyTextEditor_android_layoutDirection, LayoutDirection.LOCALE);
             MNextFocusDownId = typedArray.getInt(R.styleable.EasyTextEditor_android_nextFocusDown, 0);
             MHint = typedArray.getString(R.styleable.EasyTextEditor_Hint);
 
-//            MTvPadding = (int) typedArray.getDimension(R.styleable.EasyTextEditor_BorderPadding, R.dimen.sps_lpr_10);
+            MTvPadding = typedArray.getInt(R.styleable.EasyTextEditor_BorderPadding, 0);
 //            MBackground = typedArray.getInt(R.styleable.EasyTextEditor_android_layoutDirection, LayoutDirection.LOCALE);
             typedArray.recycle();
         }
@@ -227,7 +229,10 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
         if(MTypeFace != null) MTv.setTypeface(MTypeFace);
         MTv.setTextSize(MTextSize);
         MTv.setTextColor(MTextColor);
-//        MTv.setPadding(MTvPadding, MTvPadding, MTvPadding, MTvPadding);
+        ViewBaseText.setPadding(MTvPadding, MTvPadding, MTvPadding, MTvPadding);
+
+//        RelativeLayout.LayoutParams cc = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+//        MTv.setLayoutParams(cc);
 
         ViewBaseText.setLayoutDirection(MLayoutDirection);
 //        if(MThousandSP) MTv.setText(doubleToDecimal());

@@ -43,13 +43,13 @@
     <dimen name="sps_txt_sz_10" >10sp</dimen>
     <dimen name="sps_txt_sz_12" >12sp</dimen>
     <dimen name="sps_txt_sz_14" >14sp</dimen>
-    <dimen name="sps_txt_sz_16">16dip</dimen>
-    <dimen name="sps_txt_sz_18">18dip</dimen>
-    <dimen name="sps_txt_sz_20">20dip</dimen>
-    <dimen name="sps_txt_sz_22">22dip</dimen>
+    <dimen name="sps_txt_sz_16">16sp</dimen>
+    <dimen name="sps_txt_sz_18">18sp</dimen>
+    <dimen name="sps_txt_sz_20">20sp</dimen>
+    <dimen name="sps_txt_sz_22">22sp</dimen>
     <dimen name="sps_lpr_150">150dp</dimen>
     <dimen name="sps_lpr_5">5dp</dimen>
     <dimen name="sps_lpr_7">7dp</dimen>
     <dimen name="sps_lpr_10">10dp</dimen>
-    <dimen name="sps_txt_sz_40">40dip</dimen>
+    <dimen name="sps_txt_sz_40">40sp</dimen>
 </resources>

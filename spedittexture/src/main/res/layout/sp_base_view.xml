@@ -47,8 +47,6 @@
 
     <LinearLayout
         android:id="@+id/rlySync"
-        android:layout_marginStart="@dimen/sps_lpr_5"
-        android:layout_marginEnd="@dimen/sps_lpr_5"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
         android:layout_width="wrap_content"

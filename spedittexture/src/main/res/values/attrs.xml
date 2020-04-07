@@ -10,12 +10,12 @@
 <!--    </declare-styleable>-->
 
     <declare-styleable name="EasyTextEditor">
-        <attr name="BorderPadding" format="dimension"/>
+        <attr name="BorderPadding" format="integer"/>
         <attr name="MultiLine" format="boolean"/>
         <attr name="DialogMode" format="boolean"/>
         <attr name="ThousandsSeparator" format="boolean"/>
         <attr name="Hint" format="string"/>
-        <attr name="ZTextSize" format="float"/>
+        <attr name="ZTextSize" format="integer"/>
 
         <attr name="StartMode" format="enum">
         <enum name="Typing" value="0"/>
