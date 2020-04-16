@@ -77,7 +77,7 @@ import java.util.StringTokenizer;
 public class EasyTextEditor extends RelativeLayout implements RecognitionListener {
 
     public static String ResultQrCode = "ResultQrCode";
-    public static Typeface TF_Holo ;
+    public static Typeface TF_Holo , TF_Material ;
     public static DecimalFormat dcFormat = new DecimalFormat("#,###");
     private InputMethodManager imm;
     private boolean SpeechStatus = false;
@@ -156,6 +156,7 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
 
         mContext = context;
         TF_Holo = Typeface.createFromAsset(context.getAssets(), "holo-icon-font.ttf" + "");
+        TF_Material = Typeface.createFromAsset(context.getAssets(), "material-icon-font.ttf" + "");
         imm = (InputMethodManager) context.getSystemService(Activity.INPUT_METHOD_SERVICE);
 
         this.setBackgroundColor(Color.TRANSPARENT);

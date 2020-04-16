@@ -22,6 +22,7 @@ import cn.bingoogolapple.qrcode.zxing.ZXingView;
 
 import static com.spisoft.spedittexture.EasyTextEditor.ResultQrCode;
 import static com.spisoft.spedittexture.EasyTextEditor.TF_Holo;
+import static com.spisoft.spedittexture.EasyTextEditor.TF_Material;
 import static com.spisoft.spedittexture.GlobalCls.buildCounterRecDrawable;
 
 
@@ -68,10 +69,10 @@ public class QrCodeActivity extends AppCompatActivity implements QRCodeView.Dele
         getMenuInflater().inflate(R.menu.menu_scanner, menu);
 
         flashSwitchItem = menu.findItem(R.id.action_flash);
-        flashSwitchItem.setIcon(buildCounterRecDrawable(QrCodeActivity.this, 0, R.string.ic_holo_flash_on, Color.YELLOW,0, TF_Holo));
+        flashSwitchItem.setIcon(buildCounterRecDrawable(QrCodeActivity.this, 0, R.string.ic_flash_on, Color.YELLOW,0, TF_Material));
 
         cameraSwitchItem = menu.findItem(R.id.action_switch_camera);
-        cameraSwitchItem.setIcon(buildCounterRecDrawable(QrCodeActivity.this, 0, R.string.ic_holo_switch_camera, Color.YELLOW,0, TF_Holo));
+        cameraSwitchItem.setIcon(buildCounterRecDrawable(QrCodeActivity.this, 0, R.string.ic_switch_camera, Color.YELLOW,0, TF_Material));
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -84,10 +85,10 @@ public class QrCodeActivity extends AppCompatActivity implements QRCodeView.Dele
             FlashIsChecked = !FlashIsChecked;
             if(FlashIsChecked) {
                 mZBarView.openFlashlight();
-                flashSwitchItem.setIcon(buildCounterRecDrawable(QrCodeActivity.this, 0, R.string.ic_holo_flash_off, Color.YELLOW, 0, TF_Holo));
+                flashSwitchItem.setIcon(buildCounterRecDrawable(QrCodeActivity.this, 0, R.string.ic_flash_off, Color.YELLOW, 0, TF_Material));
             }else {
                 mZBarView.closeFlashlight();
-                flashSwitchItem.setIcon(buildCounterRecDrawable(QrCodeActivity.this, 0, R.string.ic_holo_flash_on, Color.YELLOW, 0, TF_Holo));
+                flashSwitchItem.setIcon(buildCounterRecDrawable(QrCodeActivity.this, 0, R.string.ic_flash_on, Color.YELLOW, 0, TF_Material));
             }
         }
 
