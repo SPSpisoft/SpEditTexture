@@ -52,7 +52,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-        <com.github.johnkil.print.PrintView
+         <com.github.johnkil.print.PrintView
             android:id="@+id/icOptional"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -100,6 +100,19 @@
             android:paddingEnd="@dimen/sps_lpr_5"
             android:layout_width="@dimen/sps_lpr_sz_30"
             android:layout_height="@dimen/sps_lpr_sz_30" />
+
+        <com.github.johnkil.print.PrintView
+            android:id="@+id/icBtnOption"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingStart="@dimen/sps_lpr_5"
+            android:paddingEnd="@dimen/sps_lpr_5"
+            android:visibility="gone"
+            app:iconColor="@android:color/darker_gray"
+            app:iconFont="holo-icon-font.ttf"
+            app:iconSize="@dimen/sps_lpr_sz_30"
+            app:iconText="@string/ic_holo_settings" />
 
     </LinearLayout>
 

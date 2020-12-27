@@ -12,8 +12,6 @@ import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.wifi.WifiInfo;
-import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcel;
@@ -24,16 +22,13 @@ import android.speech.SpeechRecognizer;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
-import android.text.format.Formatter;
 import android.text.method.KeyListener;
 import android.util.AttributeSet;
 import android.util.LayoutDirection;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -54,7 +49,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 
-import com.github.johnkil.print.PrintButton;
 import com.github.johnkil.print.PrintView;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
@@ -63,10 +57,6 @@ import com.karumi.dexter.listener.PermissionDeniedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 
-import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.InetAddress;
-import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -96,6 +86,7 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
     private TextView MTHint;
     private EditText MTv;
     private View MiAbout, MiOptional;
+    private PrintView MiBtnOption;
     private int inputType;
     private int imeOptions;
     private int Index;
@@ -121,6 +112,7 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
     private int MNextFocusDownId;
     private String MHint;
     private boolean MOptional;
+    private boolean ShowBtnOption;
     private String MNextText, MPrevText;
     private View vNext, vPrev;
     private TextView MNextBtn, MPrevBtn;
@@ -131,6 +123,7 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
     private RelativeLayout RlyText;
     private boolean MDialogMode = true;
     private OnImeClickListener mImeListener;
+    private OnClickListener mBtnOptionListener;
 //    private int MTvPadding;
 
     public EasyTextEditor(Context context) {
@@ -283,6 +276,14 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
             @Override
             public void onClick(View v) {
                 Toast.makeText(context, MInfo, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        MiBtnOption = rootView.findViewById(R.id.icBtnOption);
+        MiBtnOption.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mBtnOptionListener != null) mBtnOptionListener.onClick(v);
             }
         });
 
@@ -485,6 +486,14 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
         mImeListener = eventListener;
     }
 
+    public interface OnBtnOptionClickListener {
+        void onEvent();
+    }
+
+    public void setBtnOptionClickListener(OnClickListener eventListener) {
+        mBtnOptionListener = eventListener;
+    }
+
     public interface OnPlusClickListener {
         void onEvent();
     }
@@ -600,6 +609,15 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
         if(MOptional) {
             MiOptional.setVisibility(VISIBLE);
             MMode = 3;
+        }
+        return this;
+    }
+
+    public EasyTextEditor setBtnOption(boolean showBtnOption){
+        ShowBtnOption = showBtnOption;
+        if(ShowBtnOption){
+            MiBtnOption.setVisibility(VISIBLE);
+//            MiBtnOption.setIconCode(icIcon);
         }
         return this;
     }

@@ -9,9 +9,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,12 +30,20 @@ public class MainActivity extends AppCompatActivity {
         easyTextEditor
                 .setHint("Hint").setUses(MainActivity.this, false, true)
                 .setDialogMode(false)
+                .setBtnOption(true)
                 .addTextChangedListener(new EasyTextEditor.OnChangeTextListener() {
                     @Override
                     public void onEvent() {
                         Toast.makeText(MainActivity.this, ">> "+easyTextEditor.getText() ,Toast.LENGTH_SHORT).show();
                     }
                 });
+
+        easyTextEditor.setBtnOptionClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(MainActivity.this, "___00___ " ,Toast.LENGTH_SHORT).show();
+            }
+        });
 
         easyTextEditor.addTextChangedListenerMain(new EasyTextEditor.OnChangeTextListenerMain() {
             @Override
@@ -68,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
                 .setUses(MainActivity.this, true, true)
                 .setDialogMode(true)
                 .setOnFocusStart(true).setBackgroundResource(R.drawable.background_button_shape_2);
-        easyTextEditor2.setTextColor(R.color.colorPrimary).setOnFocusStart(true);
+        easyTextEditor2.setTextColor(R.color.colorPrimary).setOnFocusStart(true).setBtnOption(true);
         Typeface TF_Tahoma = Typeface.createFromAsset(getBaseContext() .getAssets(), "tahoma.ttf" + "");
 
         easyTextEditor0.setNextFocus(easyTextEditor2, "بعدی")
