@@ -839,11 +839,11 @@ public class TextViewEditor extends RelativeLayout implements RecognitionListene
                         ListPermission
                 ).withListener(new MultiplePermissionsListener() {
             @Override public void onPermissionsChecked(MultiplePermissionsReport report) {
-                List<PermissionDeniedResponse> ListDenide = report.getDeniedPermissionResponses();
-                for(int i = 0; i < ListDenide.size(); i++){
-                    if(ListDenide.get(i).getPermissionName().toUpperCase().contains("CAMERA"))
+                List<PermissionDeniedResponse> ListDenied = report.getDeniedPermissionResponses();
+                for(int i = 0; i < ListDenied.size(); i++){
+                    if(ListDenied.get(i).getPermissionName().toUpperCase().contains("CAMERA"))
                         MBtnQrCode.setVisibility(GONE);
-                    if(ListDenide.get(i).getPermissionName().toUpperCase().contains("RECORD_AUDIO"))
+                    if(ListDenied.get(i).getPermissionName().toUpperCase().contains("RECORD_AUDIO"))
                         MBtnVoice.setVisibility(GONE);
                 }
             }

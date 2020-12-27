@@ -113,6 +113,7 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
     private boolean MThousandSP = false;
     OnEditorActionListener mActionListener;
     OnChangeTextListener mListener;
+    OnChangeTextListenerMain mListenerMain;
     OnClickListener mPlusListener;
     private boolean MMultiLine;
     private boolean MEnabled = true;
@@ -173,6 +174,22 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
 //        SpannableString content = new SpannableString("Content");
 //        content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
 //        MTv.setText(content);
+//        MTv.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable editable) {
+//
+//            }
+//        });
 
         MTv.setId(View.generateViewId());
 
@@ -187,6 +204,24 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if(MOnFocusStart && hasFocus) OpenEditorDialog(context);
+            }
+        });
+
+        MTv.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if(mListenerMain != null)
+                    mListenerMain.onEvent();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
             }
         });
 
@@ -464,6 +499,14 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
 
     public void addTextChangedListener(OnChangeTextListener eventListener) {
         mListener = eventListener;
+    }
+
+    public interface OnChangeTextListenerMain {
+        void onEvent();
+    }
+
+    public void addTextChangedListenerMain(OnChangeTextListenerMain eventListener) {
+        mListenerMain = eventListener;
     }
 
     public interface OnEditorActionListener {
@@ -808,7 +851,8 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
                 VerifyNext(actionId);
-                if(mActionListener != null) mActionListener.onEvent();
+                if(mActionListener != null)
+                    mActionListener.onEvent();
                 else if(MBtnShow) MBtn.callOnClick();
                 return false;
             }
@@ -819,10 +863,11 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
 
         if(inputType == InputType.TYPE_CLASS_NUMBER) RlyText.setLayoutDirection(LAYOUT_DIRECTION_LTR);
 
+
         MText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+                ListFilter(s.toString());
             }
 
             @Override
@@ -830,6 +875,9 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
 //                eAddPrice.addTextChangedListener(new GlobalFncCls.NumberTextWatcherForThousand(eAddPrice));
                 MTv.setText(s);
                 ListFilter(s.toString());
+
+                if(mListener != null)
+                    mListener.onEvent();
             }
 
             @Override

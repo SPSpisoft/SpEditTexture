@@ -30,9 +30,22 @@ public class MainActivity extends AppCompatActivity {
         final EasyTextEditor easyTextEditor = findViewById(R.id.bet);
 //        easyTextEditor.setPadding(R.dimen.sps_lpr_sz_20,R.dimen.sps_lpr_sz_20,R.dimen.sps_lpr_sz_20,R.dimen.sps_lpr_sz_20);
         easyTextEditor
-                .setHint("Hint").setUses(MainActivity.this, true, true)
+                .setHint("Hint").setUses(MainActivity.this, false, true)
                 .setDialogMode(false)
-                .setBackgroundResource(R.drawable.background_button_shape_2);
+                .addTextChangedListener(new EasyTextEditor.OnChangeTextListener() {
+                    @Override
+                    public void onEvent() {
+                        Toast.makeText(MainActivity.this, ">> "+easyTextEditor.getText() ,Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+        easyTextEditor.addTextChangedListenerMain(new EasyTextEditor.OnChangeTextListenerMain() {
+            @Override
+            public void onEvent() {
+                Toast.makeText(MainActivity.this, "______ "+easyTextEditor.getText() ,Toast.LENGTH_SHORT).show();
+            }
+        });
+
 //        easyTextEditor.setOnImeClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
@@ -43,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         easyTextEditor.setOnImeClickListener(new EasyTextEditor.OnImeClickListener() {
             @Override
             public void onEvent() {
-                Toast.makeText(MainActivity.this, easyTextEditor.getText() ,Toast.LENGTH_SHORT).show();
+//                Toast.makeText(MainActivity.this, easyTextEditor.getText() ,Toast.LENGTH_SHORT).show();
             }
         });
 //        easyTextEditor
@@ -95,6 +108,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onEvent() {
                 easyTextEditor2.setTextColor(Color.GREEN);
+            }
+        });
+
+        easyTextEditor2.addTextChangedListener(new EasyTextEditor.OnChangeTextListener() {
+            @Override
+            public void onEvent() {
+                Toast.makeText(MainActivity.this,">>>>>>",Toast.LENGTH_SHORT).show();
             }
         });
 
