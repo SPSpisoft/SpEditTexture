@@ -54,8 +54,10 @@ import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionDeniedResponse;
+import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
+import com.karumi.dexter.listener.single.PermissionListener;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -301,24 +303,27 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
         MiQr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-                Intent intentQR = new Intent(context, QrCodeActivity.class);
-                myStartActivityForResult((FragmentActivity) getContext(), intentQR, REQ_CODE_QRCODE, new OnActivityResult() {
-                    @Override
-                    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-                        if(data != null) {
-                            MTv.setText(data.getStringExtra(ResultQrCode));
-                            mImeListener.onEvent();
+                if(CheckPermission(context, Manifest.permission.CAMERA)) {
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                    Intent intentQR = new Intent(context, QrCodeActivity.class);
+                    myStartActivityForResult((FragmentActivity) getContext(), intentQR, REQ_CODE_QRCODE, new OnActivityResult() {
+                        @Override
+                        public void onActivityResult(int requestCode, int resultCode, Intent data) {
+                            if (data != null) {
+                                MTv.setText(data.getStringExtra(ResultQrCode));
+                                mImeListener.onEvent();
+                            }
                         }
-                    }
-                });
+                    });
+                }
             }
         });
 
         MBtnVoice.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                promptSpeechInput(mContext, MTv);
+                if(CheckPermission(context, Manifest.permission.RECORD_AUDIO))
+                    promptSpeechInput(mContext, MTv);
             }
         });
 
@@ -330,6 +335,22 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
                 return true;
             }
         });
+    }
+
+    private boolean CheckPermission(Context context, String mPermission) {
+            final boolean[] ret = {true};
+            Dexter.withContext(context)
+                    .withPermission(mPermission)
+                    .withListener(new PermissionListener() {
+                        @Override public void onPermissionGranted(PermissionGrantedResponse response) {
+                            ret[0] = true; }
+                        @Override public void onPermissionDenied(PermissionDeniedResponse response) {
+                            ret[0] = false; }
+                        @Override public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {
+                            ret[0] = false;}
+                    }).check();
+            return ret[0];
+
     }
 
     private void OpenEditorDialog(Context context) {
