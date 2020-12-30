@@ -494,7 +494,8 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
         UseBarcodeScanner = useBarcodeScanner;
         RefreshUses();
 
-        GetPermission(activity);
+        if(UseSpeechToText || UseBarcodeScanner)
+            GetPermission(activity);
 
         return this;
     }
@@ -686,7 +687,9 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
     private void RefreshUses() {
         if(!MDialogMode) {
             if (UseBarcodeScanner) MiQr.setVisibility(VISIBLE);
+            else MiQr.setVisibility(GONE);
             if (UseSpeechToText) MBtnVoice.setVisibility(VISIBLE);
+            else MBtnVoice.setVisibility(GONE);
         }
     }
 
