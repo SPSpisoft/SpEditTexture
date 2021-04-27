@@ -15,6 +15,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.spisoft.spedittexture.EasyTextEditor;
+import com.spisoft.spedittexture.TextureItem;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -77,22 +81,31 @@ public class MainActivity extends AppCompatActivity {
         easyTextEditor2.setTextColor(R.color.colorPrimary).setOnFocusStart(true).setBtnOption(true);
         Typeface TF_Tahoma = Typeface.createFromAsset(getBaseContext() .getAssets(), "tahoma.ttf" + "");
 
+        ArrayList<TextureItem> textureItems = new ArrayList<>();
+        TextureItem textureItem1 = new TextureItem(0, null, "TEL", R.drawable.ic_camera_enhance_black_24dp);
+        textureItems.add(textureItem1);
+        TextureItem textureItem2 = new TextureItem(0, null, "MOB", R.drawable.ic_barcode_black_36dp);
+        textureItems.add(textureItem2);
+        TextureItem textureItem3 = new TextureItem(0, null, "FAX", R.drawable.ic_edit_location_grey_600_24dp);
+        textureItems.add(textureItem3);
         easyTextEditor0.setNextFocus(easyTextEditor2, "بعدی")
                 .setPrevFocus(easyTextEditor, "قبلی")
                 .setUses(MainActivity.this, true, true)
                 .setInfo("TEXT2")
                 .setHint("لیستی")
+                .setIcon(R.drawable.ic_barcode_black_18dp, true)
                 .setOptional(true)
                 .setTypeFace(TF_Tahoma)
-                .setList(new String[] { "Android List View", "Adapter implementation"});
+                .setListItems(textureItems);
+//                .setList(new String[] { "Android List View", "Adapter implementation"});
 
 
-        easyTextEditor0.buttonPlusView(true, R.drawable.ic_camera_enhance_black_24dp).setOnPlusClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(MainActivity.this,"mmm",Toast.LENGTH_SHORT).show();
-            }
-        });
+//        easyTextEditor0.buttonPlusView(true, R.drawable.ic_camera_enhance_black_24dp).setOnPlusClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Toast.makeText(MainActivity.this,"mmm",Toast.LENGTH_SHORT).show();
+//            }
+//        });
 //        vv.setImageResource(R.drawable.ic_camera_enhance_black_24dp);
 
 

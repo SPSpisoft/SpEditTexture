@@ -95,7 +95,8 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
     private AlertDialog AlertDialogText;
     private String MInfo = null;
     private ListView listView;
-    private ArrayAdapter<String> listAdapter;
+//    private ArrayAdapter<String> listAdapter;
+    private ItemsAdapter listItemsAdapter;
     private String[] MListItems;
     private int MMode;
     private Typeface MTypeFace = null;
@@ -126,6 +127,9 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
     private boolean MDialogMode = true;
     private OnImeClickListener mImeListener;
     private OnClickListener mBtnOptionListener;
+    private ArrayList<TextureItem> MListClsItems;
+    private View RlySync;
+    private ImageView MIcon;
 //    private int MTvPadding;
 
     public EasyTextEditor(Context context) {
@@ -159,7 +163,10 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
 
         rootView = inflate(context, R.layout.sp_base_view, this);
 
+        RlySync = rootView.findViewById(R.id.rlySync);
+
         ViewBaseText = rootView.findViewById(R.id.viewBaseText);
+        MIcon = rootView.findViewById(R.id.mImageView);
         MTv = rootView.findViewById(R.id.mTextView);
 
         //No editable
@@ -558,6 +565,15 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
         return MTv.getText().toString();
     }
 
+    public EasyTextEditor setIcon(int iconHint, boolean iconOnly){
+        MIcon.setImageResource(iconHint);
+        if(iconOnly) {
+            RlySync.setVisibility(GONE);
+            MTv.setVisibility(GONE);
+        }
+        return this;
+    }
+
     public EasyTextEditor setText(String text){
         MTv.setText(text);
         return this;
@@ -588,6 +604,11 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
 
     public EasyTextEditor setList(String[] listItems){
         MListItems = listItems;
+        return this;
+    }
+
+    public EasyTextEditor setListItems(ArrayList<TextureItem> listItems){
+        MListClsItems = listItems;
         return this;
     }
 
@@ -843,15 +864,17 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
         if(UseBarcodeScanner) MBtnQrCode.setVisibility(VISIBLE);
         else MBtnQrCode.setVisibility(GONE);
 
-        if(MListItems != null && MListItems.length > 0) {
+        if(MListClsItems != null && MListClsItems.size() > 0) {
             listView.setVisibility(VISIBLE);
-            listAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, android.R.id.text1, MListItems);
-            listView.setAdapter(listAdapter);
+            listItemsAdapter = new ItemsAdapter(mContext, MListClsItems);
+            listView.setAdapter(listItemsAdapter);
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    String itemValue = (String) listView.getItemAtPosition(position);
+//                    String itemValue = (String) listView.getItemAtPosition(position);
+                    String itemValue = MListClsItems.get(position).getTitle();
                     MText.setText(itemValue);
+                    MIcon.setImageResource(MListClsItems.get(position).getIcon());
                     VerifyNext(imeOptions);
                 }
             });
@@ -866,6 +889,30 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
                 }
             });
         }
+
+//        if(MListItems != null && MListItems.length > 0) {
+//            listView.setVisibility(VISIBLE);
+//            listAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_list_item_1, android.R.id.text1, MListItems);
+//            listView.setAdapter(listAdapter);
+//            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//                @Override
+//                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                    String itemValue = (String) listView.getItemAtPosition(position);
+//                    MText.setText(itemValue);
+//                    VerifyNext(imeOptions);
+//                }
+//            });
+//            listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+//                @Override
+//                public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+//                    String itemValue = (String) listView.getItemAtPosition(position);
+//                    MText.setText(itemValue);
+//                    AlertDialogText.dismiss();
+//                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+//                    return true;
+//                }
+//            });
+//        }
 
         //---------------------
 //        MBtn.setIconFont(TF_Holo);
@@ -1012,8 +1059,8 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
 
     private void ListFilter(String mText) {
         if(listView.getVisibility() == View.VISIBLE) {
-            listAdapter.getFilter().filter(mText);
-            listAdapter.notifyDataSetChanged();
+            listItemsAdapter.getFilter().filter(mText);
+            listItemsAdapter.notifyDataSetChanged();
         }
     }
 

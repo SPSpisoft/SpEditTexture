@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     android:id="@+id/viewBaseText"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     tools:ignore="MissingConstraints"
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -12,47 +12,71 @@
         android:id="@+id/cProgress"
         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
         android:layout_width="match_parent"
+        android:layout_toStartOf="@+id/llyMn"
+        android:layout_alignEnd="@+id/llyMn"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerVertical="true"
-        android:layout_marginStart="@dimen/sps_lpr_sz_20"
-        android:layout_marginEnd="@dimen/sps_lpr_sz_20"
+        android:layout_marginStart="@dimen/sps_lpr_sz_30"
+        android:layout_marginEnd="@dimen/sps_lpr_sz_30"
         android:background="@android:color/transparent"
         android:foregroundGravity="top"
         android:indeterminateDrawable="@drawable/progress_indeterminate"
-        android:progress="70"
+        android:progress="100"
         android:progressDrawable="@drawable/progress_green"
         android:visibility="gone" />
 
-    <EditText
-        android:id="@+id/mTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <LinearLayout
+        android:id="@+id/llyMn"
+        android:layout_toStartOf="@+id/rlySync"
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
-        android:imeOptions="actionSearch"
-        android:layout_toStartOf="@+id/rlySync"
-        android:padding="@dimen/sps_lpr_10"
-        android:textSize="@dimen/sps_txt_sz_16" />
+        android:paddingStart="@dimen/sps_lpr_5"
+        android:paddingEnd="@dimen/sps_lpr_5"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
-<!--    <RelativeLayout-->
-<!--        android:id="@+id/rlyControl"-->
-<!--        android:visibility="gone"-->
-<!--        android:layout_toEndOf="@id/mTextView"-->
-<!--        android:layout_centerVertical="true"-->
-<!--        android:layout_alignParentEnd="true"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content">-->
-<!--    </RelativeLayout>-->
+        <ImageView
+            android:id="@+id/mImageView"
+            android:visibility="visible"
+            tools:visibility="visible"
+            android:layout_width="@dimen/sps_lpr_sz_25"
+            android:layout_height="@dimen/sps_lpr_sz_25"
+            tools:ignore="VectorDrawableCompat" />
+
+        <EditText
+            android:id="@+id/mTextView"
+            android:visibility="visible"
+            tools:visibility="visible"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:imeOptions="actionSearch"
+            android:padding="@dimen/sps_lpr_10"
+            android:textSize="@dimen/sps_txt_sz_16" />
+
+    </LinearLayout>
+
+    <!--    <RelativeLayout-->
+    <!--        android:id="@+id/rlyControl"-->
+    <!--        android:visibility="gone"-->
+    <!--        android:layout_toEndOf="@id/mTextView"-->
+    <!--        android:layout_centerVertical="true"-->
+    <!--        android:layout_alignParentEnd="true"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content">-->
+    <!--    </RelativeLayout>-->
 
     <LinearLayout
         android:id="@+id/rlySync"
+        android:visibility="visible"
+        tools:visibility="visible"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
-         <com.github.johnkil.print.PrintView
+        <com.github.johnkil.print.PrintView
             android:id="@+id/icOptional"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
