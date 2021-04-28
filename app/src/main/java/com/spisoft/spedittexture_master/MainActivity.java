@@ -6,6 +6,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -82,11 +83,11 @@ public class MainActivity extends AppCompatActivity {
         Typeface TF_Tahoma = Typeface.createFromAsset(getBaseContext() .getAssets(), "tahoma.ttf" + "");
 
         ArrayList<TextureItem> textureItems = new ArrayList<>();
-        TextureItem textureItem1 = new TextureItem(0, null, "TEL", R.drawable.ic_camera_enhance_black_24dp);
+        TextureItem textureItem1 = new TextureItem(1, null, "TEL", R.drawable.ic_camera_enhance_black_24dp);
         textureItems.add(textureItem1);
-        TextureItem textureItem2 = new TextureItem(0, null, "MOB", R.drawable.ic_barcode_black_36dp);
+        TextureItem textureItem2 = new TextureItem(2, null, "MOB", R.drawable.ic_barcode_black_36dp);
         textureItems.add(textureItem2);
-        TextureItem textureItem3 = new TextureItem(0, null, "FAX", R.drawable.ic_edit_location_grey_600_24dp);
+        TextureItem textureItem3 = new TextureItem(3, null, "FAX", R.drawable.ic_edit_location_grey_600_24dp);
         textureItems.add(textureItem3);
         easyTextEditor0.setNextFocus(easyTextEditor2, "بعدی")
                 .setPrevFocus(easyTextEditor, "قبلی")
@@ -99,7 +100,18 @@ public class MainActivity extends AppCompatActivity {
                 .setListItems(textureItems);
 //                .setList(new String[] { "Android List View", "Adapter implementation"});
 
+        easyTextEditor0.setOnSelectListItemListener(new EasyTextEditor.OnSelectListItemListener() {
+            @Override
+            public void onEvent(int code) {
+                if(code == 1)
+                    easyTextEditor2.setInputType(InputType.TYPE_CLASS_NUMBER);
+                else if(code == 2)
+                    easyTextEditor2.setInputType(InputType.TYPE_CLASS_TEXT);
+                else
+                    easyTextEditor2.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
 
+            }
+        });
 //        easyTextEditor0.buttonPlusView(true, R.drawable.ic_camera_enhance_black_24dp).setOnPlusClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {

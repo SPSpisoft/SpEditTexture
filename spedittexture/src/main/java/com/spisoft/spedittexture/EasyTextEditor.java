@@ -109,6 +109,7 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
     OnChangeTextListener mListener;
     OnChangeTextListenerMain mListenerMain;
     OnClickListener mPlusListener;
+    OnSelectListItemListener mSelectListItemListener;
     private boolean MMultiLine;
     private boolean MEnabled = true;
     private boolean MOnFocusStart = false;
@@ -555,6 +556,16 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
         mActionListener = eventListener;
     }
 
+    //TODO: Item select listener
+    public interface OnSelectListItemListener {
+        void onEvent(int code);
+    }
+
+    public void setOnSelectListItemListener(OnSelectListItemListener eventListener) {
+        mSelectListItemListener = eventListener;
+    }
+
+    //TODO:
     public EasyTextEditor buttonPlusView(boolean b, int icon){
         MBtnIcon = icon;
         MBtnShow = b;
@@ -576,6 +587,12 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
 
     public EasyTextEditor setText(String text){
         MTv.setText(text);
+        return this;
+    }
+
+    public EasyTextEditor setInputType(int mInputType){
+        this.inputType = mInputType;
+        invalidate();
         return this;
     }
 
@@ -872,17 +889,18 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 //                    String itemValue = (String) listView.getItemAtPosition(position);
-                    String itemValue = MListClsItems.get(position).getTitle();
-                    MText.setText(itemValue);
+//                    String itemValue = MListClsItems.get(position).getTitle();
+                    MText.setText(MListClsItems.get(position).getTitle());
                     MIcon.setImageResource(MListClsItems.get(position).getIcon());
+                    if(mSelectListItemListener != null) mSelectListItemListener.onEvent(MListClsItems.get(position).getCode());
                     VerifyNext(imeOptions);
                 }
             });
             listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                 @Override
                 public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                    String itemValue = (String) listView.getItemAtPosition(position);
-                    MText.setText(itemValue);
+                    MText.setText(MListClsItems.get(position).getTitle());
+                    MIcon.setImageResource(MListClsItems.get(position).getIcon());
                     AlertDialogText.dismiss();
                     imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                     return true;
