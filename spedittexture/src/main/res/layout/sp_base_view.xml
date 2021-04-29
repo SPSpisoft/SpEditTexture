@@ -39,7 +39,7 @@
 
         <ImageView
             android:id="@+id/mImageView"
-            android:visibility="visible"
+            android:visibility="gone"
             tools:visibility="visible"
             android:layout_width="@dimen/sps_lpr_sz_25"
             android:layout_height="@dimen/sps_lpr_sz_25"

@@ -579,6 +579,7 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
     }
 
     public EasyTextEditor setIcon(int iconHint, boolean iconOnly){
+        MIcon.setVisibility(GONE);
         MIcon.setImageResource(iconHint);
         if(iconOnly) {
             RlySync.setVisibility(GONE);
