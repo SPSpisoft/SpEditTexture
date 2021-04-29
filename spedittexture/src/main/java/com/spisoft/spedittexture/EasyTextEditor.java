@@ -579,12 +579,13 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
     }
 
     public EasyTextEditor setIcon(int iconHint, boolean iconOnly){
-        MIcon.setVisibility(GONE);
+        MIcon.setVisibility(VISIBLE);
         MIcon.setImageResource(iconHint);
         if(iconOnly) {
             RlySync.setVisibility(GONE);
             MTv.setVisibility(GONE);
         }
+        invalidate();
         return this;
     }
 
@@ -602,6 +603,12 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
     public EasyTextEditor setHint(String hint){
         MHint = hint;
         MTv.setHint(hint);
+        return this;
+    }
+
+    public EasyTextEditor setZTextSize(float textSize){
+        ZTextSize = textSize;
+        invalidate();
         return this;
     }
 
