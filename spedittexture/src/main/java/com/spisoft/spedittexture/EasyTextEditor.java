@@ -368,6 +368,8 @@ public class EasyTextEditor extends RelativeLayout implements RecognitionListene
                 AlertDialogText.show();
                 if (!MOptional)
                     imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+                else
+                    imm.hideSoftInputFromWindow(MTv.getWindowToken(), 0);
             }else {
 //                LayoutInflater layoutInflater = LayoutInflater.from(context);
 //                final View rootView = layoutInflater.inflate(R.layout.sp_control, null);

@@ -34,7 +34,8 @@ public class MainActivity extends AppCompatActivity {
 //        easyTextEditor.setPadding(R.dimen.sps_lpr_sz_20,R.dimen.sps_lpr_sz_20,R.dimen.sps_lpr_sz_20,R.dimen.sps_lpr_sz_20);
         easyTextEditor
                 .setHint("Hint").setUses(MainActivity.this, false, true)
-                .setDialogMode(false)
+                .setNextFocus(easyTextEditor0, "NExt")
+                .setDialogMode(true)
                 .setBtnOption(true)
                 .addTextChangedListener(new EasyTextEditor.OnChangeTextListener() {
                     @Override
